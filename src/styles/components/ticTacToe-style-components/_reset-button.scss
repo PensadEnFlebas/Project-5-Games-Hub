@@ -1,0 +1,37 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+
+.tttResetBtn {
+  all: unset;
+  font-family: vars.$titles-font;
+  font-size: vars.$text-font-size-xl;
+  color: vars.$secondary-color;
+  text-shadow: vars.$text-shadow-reset-button;
+  background-color: vars.$bg-btn;
+  cursor: pointer;
+
+  border: 1px outset vars.$primary-color;
+  border-radius: vars.$border-radius-l;
+  outline: none;
+  padding: vars.$padding-xs vars.$padding-m;
+
+  box-shadow: 0px 8px 0px 0px vars.$bg-btn-dark;
+  transition: all 0.3s ease-out;
+  transform: translateY(0px) translatex(0px);
+  filter: vars.$button-drop-shadow;
+
+  &:active {
+    border: 1px outset vars.$transparent-color;
+    box-shadow: none;
+
+    transform: translateY(vars.$spacing-rem-xs) translateX(0px);
+  }
+}
+
+@media (max-width: 880px) {
+  .tttResetBtn {
+    font-size: vars.$text-font-size-m;
+  }
+}

@@ -1,0 +1,69 @@
+//* IMPORTS
+
+@use './vars';
+
+//? FIXED MIXINS
+
+@mixin fixed($top: 0, $left: 0, $bottom: auto, $right: auto) {
+  position: fixed;
+  top: $top;
+  left: $left;
+  bottom: $bottom;
+  right: $right;
+}
+
+//? FLEX MIXINS
+
+@mixin flex-box(
+  $direction: row,
+  $jc: center,
+  $ai: center,
+  $gap: null,
+  $wrap: wrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $jc;
+  align-items: $ai;
+  @if $gap != null {
+    gap: $gap;
+  }
+  flex-wrap: $wrap;
+}
+
+//? BACKGROUND IMAGE MIXINS
+
+@mixin bg-image($bgUrl: null, $bgPos: center, $bgSize: 80%) {
+  background-position: $bgPos;
+  background-size: $bgSize;
+  background-repeat: no-repeat;
+  @if $bgUrl != null {
+    background-image: url($bgUrl);
+  }
+}
+
+//? BEFORE & AFTER MIXINS
+
+@mixin before-after(
+  $width: 16px,
+  $height: 16px,
+  $margRight: 8px,
+  $margLeft: 8px,
+  $bgUrl: null,
+  $filter: null
+) {
+  content: '';
+  display: inline-block;
+  width: $width;
+  height: $height;
+  margin-right: $margRight;
+  margin-left: $margLeft;
+
+  @if $bgUrl != null {
+    @include bg-image($bgUrl);
+  }
+
+  @if $filter != null {
+    filter: drop-shadow($filter);
+  }
+}

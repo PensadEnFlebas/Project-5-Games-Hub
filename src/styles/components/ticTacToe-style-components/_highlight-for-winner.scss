@@ -1,0 +1,5 @@
+.loserBox {
+  opacity: 0.4;
+  filter: blur(1px);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}

@@ -1,0 +1,8 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+
+.xMark {
+  @include mixins.bg-image($bgUrl: '/public/assets/xMark1.png');
+}

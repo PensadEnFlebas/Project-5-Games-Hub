@@ -1,0 +1,29 @@
+//* IMPORTS
+
+@use '../global/vars';
+@use '../global/mixins';
+@use '../global/extends';
+
+footer {
+  @include mixins.flex-box();
+  @include mixins.fixed($top: auto, $bottom: 0);
+
+  width: 100%;
+  padding: vars.$padding-xs;
+
+  background-color: vars.$primary-color;
+  border-top: 4px solid vars.$transparent-color;
+  border-image: vars.$border-linear-gradient;
+  border-image-slice: 1;
+
+  .pFooter {
+    font-family: vars.$text-font;
+    font-size: vars.$text-font-size-s;
+    color: vars.$secondary-color;
+    text-align: center;
+
+    span {
+      color: vars.$span-color;
+    }
+  }
+}

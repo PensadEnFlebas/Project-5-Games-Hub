@@ -1,0 +1,134 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+@use '../../global/extends';
+
+#ticTacToe {
+  @include mixins.flex-box($direction: column);
+
+  width: 100%;
+  background-color: vars.$transparent-color;
+
+  .tttLogo {
+    width: 20%;
+    margin: 50px 0;
+  }
+
+  .tttContainer {
+    @include mixins.flex-box(
+      $jc: space-evenly,
+      $wrap: nowrap,
+      $gap: vars.$gap-m
+    );
+    width: 100%;
+
+    .tttScoreContainer {
+      @include mixins.flex-box($direction: column, $ai: end, $gap: vars.$gap-l);
+
+      .scoreP {
+        font-family: vars.$text-font;
+        font-size: vars.$text-font-size-xxl;
+        color: vars.$text-color;
+
+        span {
+          font-family: vars.$titles-font;
+          font-size: vars.$score-span-size;
+          color: vars.$quaternary-color;
+          text-shadow: vars.$text-shadow-neon-effect;
+        }
+      }
+    }
+
+    .tttBoard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      height: 400px;
+      width: 400px;
+
+      background-image: url('/public/assets/board1.png');
+      background-size: 100% 100%;
+
+      .tttBox {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 880px) {
+  .tttBoard {
+    height: 300px !important;
+    width: 300px !important;
+  }
+
+  .scoreP {
+    font-size: vars.$text-font-size-l !important;
+
+    span {
+      font-size: vars.$score-span-size-small !important;
+    }
+  }
+}
+
+@media (max-width: 670px) {
+  .tttContainer {
+    flex-direction: column !important;
+    gap: vars.$gap-xxl !important;
+  }
+
+  .tttLogo {
+    width: 20% !important;
+    margin: 20px 0 !important;
+  }
+
+  .tttScoreContainer {
+    flex-direction: row !important;
+    gap: vars.$gap-xxs !important;
+
+    .scoreP {
+      font-size: vars.$text-font-size-m !important;
+      padding-right: vars.$padding-s;
+
+      span {
+        font-size: vars.$score-span-size-extra-small !important;
+      }
+    }
+  }
+}
+
+@media (max-height: 500px) {
+  .tttContainer {
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: vars.$gap-xl !important;
+  }
+
+  .tttLogo {
+    width: 16% !important;
+    margin: 15px 0 !important;
+    margin-bottom: 0px !important;
+    padding-left: vars.$padding-xl;
+    align-self: start;
+  }
+
+  .tttScoreContainer {
+    flex-direction: column !important;
+    gap: vars.$gap-xxs !important;
+
+    .scoreP {
+      font-size: vars.$text-font-size-m !important;
+      padding-right: vars.$padding-s;
+
+      span {
+        font-size: vars.$score-span-size-extra-small !important;
+      }
+    }
+  }
+
+  .tttBoard {
+    height: 200px !important;
+    width: 200px !important;
+  }
+}

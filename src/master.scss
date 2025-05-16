@@ -1,0 +1,39 @@
+//* IMPORTS
+
+@use './styles/global/vars';
+@use './styles/global/mixins';
+@use './styles/global/extends';
+@use './styles/layouts/header';
+@use './styles/components/burgerMenu';
+@use './styles/layouts/footer';
+@use './styles/layouts/main/ticTacToe';
+@use './styles/components/ticTacToe-style-components/drawX-player';
+@use './styles/components/ticTacToe-style-components/drawO-computer';
+@use './styles/components/ticTacToe-style-components/reset-button';
+@use './styles/components/ticTacToe-style-components/highlight-for-winner';
+
+//* GENERAL
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+main {
+  @extend %bgImg;
+  height: 100vh;
+
+  overflow: hidden;
+}

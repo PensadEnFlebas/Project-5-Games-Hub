@@ -1,0 +1,11 @@
+//* IMPORTS
+
+@use './vars';
+
+//? BG EXTENDS
+
+%bgImg {
+  background-image: url('/assets/bg5.webp');
+  background-size: cover;
+  background-position: center;
+}

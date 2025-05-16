@@ -1,0 +1,82 @@
+//* IMPORTS
+
+@use '../global/vars';
+@use '../global/mixins';
+@use '../global/extends';
+
+header {
+  @include mixins.flex-box($jc: space-evenly);
+  @include mixins.fixed();
+
+  width: 100%;
+  padding: vars.$padding-xs;
+
+  background-color: vars.$primary-color;
+  border-bottom: 4px solid vars.$transparent-color;
+  border-image: vars.$border-linear-gradient;
+  border-image-slice: 1;
+
+  #logo {
+    width: 100px;
+
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .h1Name {
+    display: none;
+
+    color: vars.$tertiary-color;
+    font-family: vars.$titles-font;
+    font-size: vars.$text-font-size-m;
+
+    border-bottom: 2px solid vars.$transparent-color;
+    border-image: vars.$border-linear-gradient;
+    border-image-slice: 1;
+
+    @media (max-width: 700px) {
+      display: block;
+    }
+  }
+
+  .gamesListContainer {
+    width: 80%;
+    .gamesUl {
+      @include mixins.flex-box($jc: space-evenly, $gap: vars.$gap-xs);
+
+      .gameLogo {
+        width: 100px;
+
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  header {
+    justify-content: start !important;
+    gap: vars.$gap-m;
+  }
+
+  #logo {
+    width: 50px !important;
+  }
+
+  .gamesListContainer {
+    display: none !important;
+  }
+}
+
+@media (min-width: 700px) {
+  #logo,
+  .gameLogo {
+    &:hover {
+      filter: vars.$hover-drop-shadow;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
