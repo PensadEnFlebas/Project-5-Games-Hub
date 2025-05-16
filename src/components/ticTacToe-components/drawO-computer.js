@@ -31,8 +31,9 @@ export function drawO(initialBox = null, turn, playerMove) {
 
     if (winner) {
       const combo = winner === 'draw' ? [] : getWinnerCombo()
+      highlightForWinner(combo)
+
       if (combo.length) {
-        highlightForWinner(combo)
         playWinnerSound()
       }
       updateScores(winner)
