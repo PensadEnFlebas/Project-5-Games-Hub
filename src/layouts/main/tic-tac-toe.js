@@ -24,7 +24,7 @@ export const winnerCombos = [
 ]
 
 export function ticTacToe() {
-  const tttSection = document.getElementById('ticTacToe')
+  const tttSection = document.getElementById('tictactoe')
 
   const tttLogo = createElement('img', {
     className: 'tttLogo',

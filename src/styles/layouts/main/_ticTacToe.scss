@@ -4,8 +4,9 @@
 @use '../../global/mixins';
 @use '../../global/extends';
 
-#ticTacToe {
+#tictactoe {
   @include mixins.flex-box($direction: column);
+  display: none;
 
   width: 100%;
   background-color: vars.$transparent-color;

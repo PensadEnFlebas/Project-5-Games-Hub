@@ -2,6 +2,7 @@
 
 import { createElement } from '../utils/create-elements'
 import { gamesList } from '../data/games-list'
+import { openCloseSection } from '../utils/open-close-sections'
 
 export function burgerMenu() {
   const body = document.querySelector('body')
@@ -30,10 +31,14 @@ export function burgerMenu() {
     })
 
     const burgerMenuLink = createElement('a', {
-      className: 'burgerMenuLink',
+      className: `burgerMenuLink ${game.name
+        .toLowerCase()
+        .replace(/\s+/g, '')}`,
       'aria-label': `Open ${game.name}`,
       rel: 'noopener noreferrer'
     })
+
+    openCloseSection(burgerMenuLink)
 
     const gameLogoBurgerMenu = createElement('img', {
       className: 'gameLogoBurgerMenu',

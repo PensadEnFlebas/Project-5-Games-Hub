@@ -1,0 +1,101 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+
+#hero {
+  @include mixins.flex-box($gap: 50px);
+  display: none;
+
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  margin: auto;
+
+  filter: blur(5px) opacity(0);
+  transition: all 1.2s ease-in-out;
+
+  &.unblur {
+    filter: blur(0px) opacity(1);
+  }
+
+  .heroContainer {
+    @include mixins.flex-box($direction: column, $gap: 20px);
+
+    width: 40%;
+    height: 100%;
+
+    .heroLogo {
+      width: 400px;
+    }
+
+    .pHero {
+      font-family: vars.$titles-font;
+      font-size: vars.$text-font-size-xxl * 2;
+      font-weight: 900;
+      text-align: center;
+      padding: 0px 20px;
+
+      background: radial-gradient(
+        circle farthest-corner at center center,
+        #f6f8f9 0%,
+        #bfd727 30%,
+        #d0c77f 60%,
+        #f5f7f9 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pHeroCredits {
+      font-family: vars.$text-font;
+      font-size: vars.$text-font-size-l;
+      color: vars.$secondary-color;
+      text-align: center;
+
+      span {
+        color: vars.$tertiary-color;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  .arcadeMachineContainer {
+    width: 400px;
+    height: 400px;
+
+    background-image: url('/assets/arcadeMachine.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+@media (max-width: 750px) {
+  .heroLogo {
+    width: 100px !important;
+  }
+
+  .pHero {
+    font-size: vars.$text-font-size-l * 2 !important;
+  }
+
+  .pHeroCredits {
+    font-size: vars.$text-font-size-s !important;
+  }
+
+  .arcadeMachineContainer {
+    width: 220px !important;
+    height: 220px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  #hero {
+    flex-direction: column !important;
+
+    .heroContainer {
+      height: 40% !important;
+      width: 100% !important;
+    }
+  }
+}

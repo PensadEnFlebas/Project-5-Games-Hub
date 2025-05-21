@@ -6,6 +6,7 @@
 @use './styles/layouts/header';
 @use './styles/components/burgerMenu';
 @use './styles/layouts/footer';
+@use './styles/layouts/main/hero';
 @use './styles/layouts/main/ticTacToe';
 @use './styles/components/ticTacToe-style-components/drawX-player';
 @use './styles/components/ticTacToe-style-components/drawO-computer';
@@ -36,4 +37,8 @@ main {
   height: 100vh;
 
   overflow: hidden;
+
+  .visualized {
+    display: flex !important;
+  }
 }

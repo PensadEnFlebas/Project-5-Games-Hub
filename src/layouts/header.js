@@ -3,6 +3,7 @@
 import { createElement } from '../utils/create-elements'
 import { gamesList } from '../data/games-list'
 import { adjustMainTopMargin } from '../utils/margin-adjustments/margin-top-adjustment'
+import { openCloseSection } from '../utils/open-close-sections'
 
 export function header() {
   const header = document.querySelector('header')
@@ -15,17 +16,14 @@ export function header() {
     loading: 'lazy'
   })
 
-  logo.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  })
+  openCloseSection(logo)
 
   const h1Name = createElement('h1', {
     className: 'h1Name',
     textContent: 'Goblin Games'
   })
+
+  openCloseSection(h1Name)
 
   const gamesListContainer = createElement('nav', {
     className: 'gamesListContainer'
@@ -41,11 +39,14 @@ export function header() {
     })
 
     const gameLink = createElement('a', {
-      className: 'gameLink',
+      id: `${game.name.toLowerCase().replace(/\s+/g, '')}Link`,
+      className: `gameLink ${game.name.toLowerCase().replace(/\s+/g, '')}`,
       src: game.src,
       'aria-label': `Link to ${game.name}`,
       rel: 'noopener noreferrer'
     })
+
+    openCloseSection(gameLink)
 
     const gameLogo = createElement('img', {
       id: `${game.name.toLowerCase().replace(/\s+/g, '')}Logo`,
