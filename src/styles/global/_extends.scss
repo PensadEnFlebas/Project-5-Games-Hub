@@ -1,6 +1,7 @@
 //* IMPORTS
 
 @use './vars';
+@use './mixins';
 
 //? BG EXTENDS
 
@@ -8,4 +9,18 @@
   background-image: url('/assets/bg5.webp');
   background-size: cover;
   background-position: center;
+}
+
+//? OVERLAY EXTENDS
+
+%overlay {
+  @include mixins.flex-box($direction: column, $gap: vars.$gap-l);
+
+  position: fixed;
+  inset: 0;
+  background: vars.$primary-color-overlay;
+  color: vars.$text-color;
+  font-family: vars.$gwent-text-font;
+  font-size: vars.$text-font-size-xxl * 1.5;
+  z-index: 11;
 }

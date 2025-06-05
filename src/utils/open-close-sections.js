@@ -1,3 +1,7 @@
+//* IMPORTS
+
+import { renderStartScreen } from '../components/gwent-components/render-start-screen'
+
 export function openCloseSection(linkItem) {
   const allSections = [...document.querySelectorAll('section')]
   const hero = document.getElementById('hero')
@@ -7,12 +11,30 @@ export function openCloseSection(linkItem) {
       section.classList.remove('visualized')
     })
 
-    if (linkItem.id === 'logo' || linkItem.classList.contains('h1Name')) {
+    const gwentStartScreenAlreadyShown = localStorage.getItem(
+      'gwentStartScreenAlreadyShown'
+    )
+
+    if (
+      linkItem.id === 'logo' ||
+      linkItem.classList.contains('h1Name') ||
+      linkItem.classList.contains('closeGwentBtn')
+    ) {
       hero.classList.add('visualized')
       hero.classList.remove('unblur')
+      const gwentOverlay = document.querySelector('.gwentOverlay')
+      if (gwentOverlay) {
+        gwentOverlay.remove()
+      }
       setTimeout(() => {
         hero.classList.add('unblur')
       }, 500)
+    } else if (
+      linkItem.classList.contains('gwent') &&
+      !gwentStartScreenAlreadyShown
+    ) {
+      renderStartScreen()
+      localStorage.setItem('gwentStartScreenAlreadyShown', 'true')
     } else {
       const classList = [...event.currentTarget.classList]
       const matchedSection = allSections.find((section) =>

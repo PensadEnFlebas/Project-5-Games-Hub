@@ -1,0 +1,62 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+@use '../../global/extends';
+
+.previewCardOverlay {
+  @extend %overlay;
+  z-index: 55;
+}
+
+.previewCardDiv {
+  @include mixins.flex-box(
+    $direction: column,
+    $gap: vars.$gap-l,
+    $wrap: nowrap
+  );
+
+  max-width: 500px;
+  z-index: 55;
+
+  background: radial-gradient(
+    circle,
+    rgba(23, 25, 97, 0.9) 40%,
+    rgba(62, 15, 64, 0.8) 100%
+  );
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: vars.$box-shadow-bossCard;
+
+  &.selectable {
+    background: radial-gradient(
+      circle,
+      rgba(23, 25, 97, 0.9) 40%,
+      rgba(62, 15, 64, 0.8) 100%
+    );
+  }
+
+  .gwentCard {
+    width: 250px;
+    max-height: 400px;
+    cursor: default;
+    transform: none !important;
+  }
+
+  .cardInfoContainer {
+    max-width: 200px;
+
+    .cardInfo {
+      font-size: vars.$text-font-size-l;
+    }
+  }
+
+  .buttonsDiv {
+    @include mixins.flex-box($gap: vars.$gap-m);
+
+    .closeGwentBtn {
+      margin: 0;
+    }
+  }
+}

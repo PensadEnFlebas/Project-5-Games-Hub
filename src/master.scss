@@ -12,6 +12,11 @@
 @use './styles/components/ticTacToe-style-components/drawO-computer';
 @use './styles/components/ticTacToe-style-components/reset-button';
 @use './styles/components/ticTacToe-style-components/highlight-for-winner';
+@use './styles/layouts/main/gwent';
+@use './styles/components/gwent-style-components/render-card';
+@use './styles/components/gwent-style-components/render-start-screen';
+@use './styles/components/gwent-style-components/preview-cards';
+@use './styles/components/gwent-style-components/render-mulligan';
 
 //* GENERAL
 

@@ -1,0 +1,107 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+@use '../../global/extends';
+
+.gwentOverlay {
+  @extend %overlay;
+
+  .gwentOverlayLogo {
+    width: 20%;
+  }
+}
+
+.factionBtn,
+.closeGwentBtn,
+.gwentResetBtn,
+.gwentPassBtn {
+  width: 200px;
+  background: vars.$quaternary-color;
+  color: vars.$text-color;
+  padding: vars.$padding-s vars.$padding-m;
+  font-family: vars.$gwent-text-font;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  border: 1px outset vars.$primary-color;
+  border-radius: vars.$border-radius-l;
+  outline: none;
+  padding: vars.$padding-xs vars.$padding-m;
+
+  box-shadow: 0px 8px 0px 0px vars.$bg-btn-dark;
+  transition: all 0.3s ease-out;
+  transform: translateY(0px) translatex(0px);
+  filter: vars.$button-drop-shadow;
+
+  &:active {
+    border: 1px outset vars.$transparent-color;
+    box-shadow: none;
+
+    transform: translateY(vars.$spacing-rem-xs) translateX(0px);
+  }
+}
+
+.closeGwentBtn {
+  width: fit-content;
+  margin-top: vars.$margin-l;
+
+  background: vars.$primary-color;
+  color: vars.$tertiary-color;
+  box-shadow: 0px 6px 0px 0px vars.$bg-btn-dark;
+
+  &:active {
+    border: 1px outset vars.$transparent-color;
+    box-shadow: none;
+
+    transform: translateY(vars.$spacing-rem-xxs) translateX(0px);
+  }
+}
+
+.hiddenBtn {
+  display: none;
+}
+
+.gameDataDiv {
+  @include mixins.flex-box($direction: column, $gap: 10px);
+
+  transform: translate(-8px, 14px);
+
+  color: vars.$text-color;
+  font-family: vars.$gwent-text-font;
+  font-size: vars.$text-font-size-l;
+
+  .gemsContainer {
+    @include mixins.flex-box($jc: start, $gap: 10px);
+
+    width: 50px;
+    margin-bottom: 5px;
+
+    .gem {
+      width: 20px;
+
+      &.hidden-gem {
+        display: none;
+      }
+    }
+  }
+
+  &.reverseDirection {
+    flex-direction: column-reverse;
+
+    transform: translate(-8px, -14px);
+
+    .gemsContainer {
+      margin-top: 4px;
+    }
+  }
+
+  .playerText {
+    transform: translateX(25px);
+    color: vars.$tertiary-color;
+  }
+
+  .cardsLeftText {
+    transform: translateX(25px);
+  }
+}

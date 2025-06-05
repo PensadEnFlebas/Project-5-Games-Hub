@@ -7,6 +7,8 @@ import { renderResetBtn } from '../../components/ticTacToe-components/reset-butt
 import { printScores } from '../../utils/ticTacToe-utils/scores/print-scores'
 import { clearLoserBoxes } from '../../utils/ticTacToe-utils/reset-loser-boxes-styles'
 
+//* VARIABLES
+
 const boxes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 export const whichTurn = { isMyTurn: true }
 export const gameStatus = {

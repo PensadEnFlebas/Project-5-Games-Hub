@@ -1,0 +1,97 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+@use '../../global/extends';
+
+.gwentCard {
+  aspect-ratio: 2/3;
+  height: 100%;
+  max-height: 90px;
+  background-size: 100% 100%;
+  background-position: center;
+  border-radius: 0.25rem;
+  box-shadow: vars.$box-shadow-gwentCard;
+
+  transition: all 0.5s ease-in-out;
+
+  cursor: pointer;
+
+  &.specialCard-size {
+    max-height: 70px;
+
+    transform: translateY(10px);
+
+    &.specialCard-location {
+      transform: translateY(-16px);
+    }
+  }
+
+  &.bossCard {
+    max-height: 90px;
+    box-shadow: vars.$box-shadow-bossCard;
+
+    &.computerBossCard {
+      transform: translate(5px, 13px);
+    }
+
+    &.playerBossCard {
+      transform: translate(5px, -17px);
+    }
+
+    &.bossAlreadyUsed {
+      opacity: 0.5;
+      filter: grayscale(100%);
+    }
+  }
+}
+
+.cardBack {
+  position: relative;
+  display: inline-block;
+  box-shadow: vars.$box-shadow-cardBack;
+  cursor: default;
+
+  transform: translateY(-43px);
+
+  &.relocatePlayerRemainingCards {
+    transform: translateY(35px);
+  }
+}
+
+.deadCard {
+  transform: translateY(5px);
+  cursor: default;
+
+  &.relocatePlayerDeadCards {
+    transform: translateY(-10px);
+  }
+}
+
+.lastCardPlayed {
+  box-shadow: vars.$box-shadow-lastCardPlayed !important;
+}
+
+.blockedCard .p1-melee .gwentCard,
+.blockedCard .p1-range .gwentCard,
+.blockedCard .p1-siege .gwentCard,
+.blockedCard .playerCardsContainer .gwentCard,
+.blockedCard .p1-siege.special-cards .bossCard,
+.blockedCard .gwentPassBtn {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.cardsCounter {
+  position: absolute;
+  bottom: -10px;
+  right: -30px;
+  transform: translateX(-50%);
+  background-color: vars.$secondary-color-counters;
+  color: vars.$primary-color;
+  font-size: 14px;
+  font-family: vars.$gwent-text-font;
+  border-radius: 50%;
+  padding: 6px 10px;
+  box-shadow: vars.$box-shadow-gwentCard;
+}
