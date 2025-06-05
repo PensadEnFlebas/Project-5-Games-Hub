@@ -8,8 +8,7 @@ import { cleanBoardgame } from './clean-boardgame'
 import { updateTurnIcon } from '../update-turn-icon'
 import { getGameState } from '../gameState/get-gameState'
 
-export function checkWinner() {
-  const gameState = getGameState()
+export function checkWinner(gameState) {
   console.log('checkWinner gameState: ', gameState)
 
   document.getElementById('gwent').classList.remove('blockedCard')
@@ -65,6 +64,7 @@ export function checkWinner() {
   cleanScores(player, computer)
   renderDeadCardsDeck(gameState)
   cleanBoardgame()
+  setGameState(gameState)
 
   console.log('🎯 Nuevo estado guardado:', gameState)
 }

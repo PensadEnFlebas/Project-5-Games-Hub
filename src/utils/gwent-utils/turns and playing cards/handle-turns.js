@@ -11,8 +11,7 @@ import { updateScore } from '../check winner/update-score.js'
 import { getGameState } from '../gameState/get-gameState.js'
 import { setGameState } from '../gameState/set-gameState.js'
 
-export function handleTurn() {
-  const gameState = getGameState()
+export function handleTurn(gameState) {
   console.log('handleTurn gameState: ', gameState)
 
   if (gameState.player.passed && gameState.computer.passed) {
