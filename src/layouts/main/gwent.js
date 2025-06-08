@@ -1,14 +1,9 @@
-//* IMPORTS
-
 import { createElement } from '../../utils/create-elements'
-import { getGameState } from '../../utils/gwent-utils/gameState/get-gameState'
-import { setGameState } from '../../utils/gwent-utils/gameState/set-gameState'
 import { restartGame } from '../../utils/gwent-utils/restart-game'
 import { renderGwentBtn } from '../../components/gwent-components/render-gwentBtn'
 import { updateTurnIcon } from '../../utils/gwent-utils/update-turn-icon'
 import { handleTurn } from '../../utils/gwent-utils/turns and playing cards/handle-turns'
-
-//* VARIABLES
+import { gameState } from '../../utils/gwent-utils/gameState/gameState-manager'
 
 const rows = [
   'pc-siege',
@@ -44,13 +39,18 @@ export function gwent() {
     onClick: () => {
       console.log('🚫 HAS PULSADO PASS ROUND BUTTON')
 
-      const gameState = getGameState()
-      gameState.player.passed = true
-      gameState.currentTurn = 'computer'
-      setGameState(gameState)
+      gameState.updateState((state) => ({
+        ...state,
+        player: {
+          ...state.player,
+          passed: true
+        },
+        currentTurn: 'computer'
+      }))
+
       document.getElementById('gwent').classList.add('blockedCard')
-      updateTurnIcon('computer', gameState)
-      handleTurn(gameState)
+      updateTurnIcon('computer')
+      handleTurn()
     }
   })
 

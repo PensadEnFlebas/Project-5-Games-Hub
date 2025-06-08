@@ -1,9 +1,6 @@
-//* IMPORTS
+import { gameState } from '../gameState/gameState-manager'
 
-import { getGameState } from '../gameState/get-gameState'
-import { setGameState } from '../gameState/set-gameState'
-
-export function updateScore(location, strength, gameState) {
+export function updateScore(location, strength) {
   if (typeof strength !== 'number' || isNaN(strength)) {
     return
   }
@@ -15,11 +12,23 @@ export function updateScore(location, strength, gameState) {
   let rowClass
 
   if (isPlayer) {
-    gameState.player.score += strength
+    gameState.updateState((state) => ({
+      ...state,
+      player: {
+        ...state.player,
+        score: state.player.score + strength
+      }
+    }))
     playerKey = 'player'
     rowClass = 'p1-range'
   } else if (isComputer) {
-    gameState.computer.score += strength
+    gameState.updateState((state) => ({
+      ...state,
+      computer: {
+        ...state.computer,
+        score: state.computer.score + strength
+      }
+    }))
     playerKey = 'computer'
     rowClass = 'pc-range'
   } else {
@@ -31,6 +40,7 @@ export function updateScore(location, strength, gameState) {
 
   if (playerText) {
     const name = playerKey === 'player' ? 'PLAYER' : 'COMPUTER'
-    playerText.textContent = `${name}: ${gameState[playerKey].score}`
+    const currentState = gameState.getState()
+    playerText.textContent = `${name}: ${currentState[playerKey].score}`
   }
 }

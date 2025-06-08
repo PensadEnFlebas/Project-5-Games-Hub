@@ -1,9 +1,11 @@
 import { playingCard } from '../turns and playing cards/playing-card.js'
 import { getBattlefieldStrength } from '../check winner/get-battlefield-strength.js'
 import { getRandomItem } from '../get-random-item.js'
+import { gameState } from '../gameState/gameState-manager'
 
-export function makeComputerMove(gameState) {
-  const { computer } = gameState
+export function makeComputerMove() {
+  const state = gameState.getState()
+  const { computer } = state
   const hand = computer.hand
 
   const card = getRandomItem(hand)
@@ -32,7 +34,7 @@ export function makeComputerMove(gameState) {
       const [row] = loc.split(':')
       return {
         location: loc,
-        strength: getBattlefieldStrength(row, gameState)
+        strength: getBattlefieldStrength(row)
       }
     })
 
@@ -44,5 +46,5 @@ export function makeComputerMove(gameState) {
     )
   }
 
-  playingCard(card, indexCardInHand, gameState, targetCell)
+  playingCard(card, indexCardInHand, targetCell)
 }

@@ -1,5 +1,3 @@
-//* IMPORTS
-
 import { updateTurnIcon } from '../update-turn-icon.js'
 import { getRandomItem } from '../get-random-item.js'
 import { previewCard } from '../../../components/gwent-components/preview-cards.js'
@@ -7,35 +5,32 @@ import { playingCard } from '../turns and playing cards/playing-card.js'
 import { getBattlefieldStrength } from '../check winner/get-battlefield-strength.js'
 import { checkWinner } from '../check winner/check-winner.js'
 import { computerShouldPass } from '../computer game logic/computer-should-pass.js'
-import { updateScore } from '../check winner/update-score.js'
-import { getGameState } from '../gameState/get-gameState.js'
-import { setGameState } from '../gameState/set-gameState.js'
+import { gameState } from '../gameState/gameState-manager.js'
 
-export function handleTurn(gameState) {
-  console.log('handleTurn gameState: ', gameState)
+export function handleTurn() {
+  const state = gameState.getState()
+  console.log('handleTurn gameState: ', state)
 
-  if (gameState.player.passed && gameState.computer.passed) {
+  if (state.player.passed && state.computer.passed) {
     console.log('🔚 Ambos jugadores pasaron. Se valida ganador de la ronda.')
-    checkWinner(gameState)
+    checkWinner()
     return
   }
 
-  const { currentTurn } = gameState
-
-  if (currentTurn === 'player') {
-    enablePlayerTurn(gameState)
+  if (state.currentTurn === 'player') {
+    enablePlayerTurn()
   } else {
-    handleComputerTurn(gameState)
+    handleComputerTurn()
   }
 }
 
-function enablePlayerTurn(gameState) {
-  if (gameState.player.passed) {
-    console.log('❌ Ya has pasado esta ronda. Espera a la siguiente.')
-    gameState.currentTurn = 'computer'
-    updateTurnIcon('computer', gameState)
-    handleTurn(gameState)
+function enablePlayerTurn() {
+  const state = gameState.getState()
 
+  if (state.player.passed) {
+    console.log('❌ Ya has pasado esta ronda. Espera a la siguiente.')
+    gameState.switchTurn()
+    handleTurn()
     return
   }
 
@@ -62,26 +57,23 @@ function enablePlayerTurn(gameState) {
 
     cardItem.addEventListener('click', () => {
       previewCard(cardItem, {
-        gameState,
         onUse: (cell) => {
+          const state = gameState.getState()
+
           const cardId = cardItem.id
-          const selectedCard = gameState.player.hand.find(
-            (c) => c.id === cardId
-          )
+          const selectedCard = state.player.hand.find((c) => c.id === cardId)
+
           if (!selectedCard) return
 
-          const indexCardInHand = gameState.player.hand.findIndex(
+          const indexCardInHand = state.player.hand.findIndex(
             (c) => c.id === cardId
           )
           if (indexCardInHand === -1) return
 
-          playingCard(selectedCard, indexCardInHand, gameState, cell)
+          playingCard(selectedCard, indexCardInHand, cell)
 
-          handCards.forEach((c) => c.replaceWith(c.cloneNode(true)))
-
-          gameState.currentTurn = 'computer'
-          updateTurnIcon('computer', gameState)
-          handleTurn(gameState)
+          gameState.switchTurn()
+          handleTurn()
         }
       })
     })
@@ -91,35 +83,50 @@ function enablePlayerTurn(gameState) {
   passButton.disabled = false
 }
 
-function handleComputerTurn(gameState) {
-  if (gameState.computer.passed) {
-    console.log('✅ La computadora ya ha pasado. Turno del jugador.')
-    gameState.currentTurn = 'player'
-    updateTurnIcon('player', gameState)
-    handleTurn(gameState)
+function handleComputerTurn() {
+  const state = gameState.getState()
 
+  if (state.computer.passed) {
+    console.log('✅ La computadora ya ha pasado. Turno del jugador.')
+    gameState.switchTurn()
+    updateTurnIcon('player')
+    handleTurn()
     return
   }
 
-  const hand = gameState.computer.hand
-  const shouldPass = computerShouldPass(gameState)
+  const hand = state.computer.hand
+  const shouldPass = computerShouldPass()
 
   setTimeout(() => {
+    // Get fresh state in case something changed during timeout
+    const currentState = gameState.getState()
+
     if (shouldPass) {
-      gameState.computer.passed = true
-      gameState.currentTurn = 'player'
-      updateTurnIcon('player', gameState)
-      handleTurn(gameState)
+      // Update computer passed status and switch turn
+      gameState.updateState((state) => ({
+        ...state,
+        computer: {
+          ...state.computer,
+          passed: true
+        },
+        currentTurn: 'player'
+      }))
+
+      updateTurnIcon('player')
+      handleTurn()
 
       console.log('COMPUTER HA PASADO')
-
       return
     }
 
-    const card = getRandomItem(hand)
-    const indexCardInHand = hand.findIndex((c) => c.id === card.id)
+    // Get fresh hand in case it changed
+    const freshHand = currentState.computer.hand
+    const card = getRandomItem(freshHand)
+    const indexCardInHand = freshHand.findIndex((c) => c.id === card.id)
+
     if (indexCardInHand === -1) return
 
+    // Find valid locations
     const validLocations = card.boardLocations.filter((location) => {
       const [row, column] = location.split(':')
       const cell = document.querySelector(`.cell.${row}.${column}`)
@@ -134,6 +141,7 @@ function handleComputerTurn(gameState) {
       return hasBattlefieldCards && hornIsEmpty
     })
 
+    // Find best horn location if available
     let targetCell = null
     if (validLocations.some((loc) => loc.includes(':horn'))) {
       const hornLocations = validLocations.filter((loc) =>
@@ -141,11 +149,10 @@ function handleComputerTurn(gameState) {
       )
 
       const strengths = hornLocations.map((loc) => {
-        const [row, column] = loc.split(':')
-
+        const [row] = loc.split(':')
         return {
           location: loc,
-          strength: getBattlefieldStrength(row, gameState)
+          strength: getBattlefieldStrength(row)
         }
       })
 
@@ -157,10 +164,11 @@ function handleComputerTurn(gameState) {
       )
     }
 
-    playingCard(card, indexCardInHand, gameState, targetCell)
+    playingCard(card, indexCardInHand, targetCell)
 
-    gameState.currentTurn = 'player'
-    updateTurnIcon('player', gameState)
-    handleTurn(gameState)
+    // Switch turn back to player
+    gameState.switchTurn()
+    updateTurnIcon('player')
+    handleTurn()
   }, 3000)
 }

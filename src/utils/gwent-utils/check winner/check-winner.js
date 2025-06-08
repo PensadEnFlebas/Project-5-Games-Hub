@@ -1,70 +1,84 @@
-//* IMPORTS
-
-import { setGameState } from '../gameState/set-gameState'
 import { cleanGems } from './clean-gems'
 import { cleanScores } from './clean-scores'
 import { renderDeadCardsDeck } from '../../../components/gwent-components/render-deadCards'
 import { cleanBoardgame } from './clean-boardgame'
 import { updateTurnIcon } from '../update-turn-icon'
-import { getGameState } from '../gameState/get-gameState'
+import { gameState } from '../gameState/gameState-manager'
+import { handleTurn } from '../turns and playing cards/handle-turns'
+import { endGame } from './end-game'
 
-export function checkWinner(gameState) {
-  console.log('checkWinner gameState: ', gameState)
+export function checkWinner() {
+  const state = gameState.getState()
+
+  console.log('checkWinner gameState: ', state)
 
   document.getElementById('gwent').classList.remove('blockedCard')
 
-  const { player, computer } = gameState
+  const { player, computer } = state
 
   if (!player.passed || !computer.passed) return
 
-  if (player.score > computer.score) {
-    computer.gems -= 1
-    console.log('🟦 El jugador gana la ronda')
-    gameState.currentTurn = 'player'
-    updateTurnIcon('player', gameState)
-  } else if (computer.score > player.score) {
-    player.gems -= 1
-    console.log('🟥 La IA gana la ronda')
-    gameState.currentTurn = 'computer'
-    updateTurnIcon('computer', gameState)
-  } else {
-    player.gems -= 1
-    computer.gems -= 1
-    console.log('⚪ Ronda empatada')
-  }
+  gameState.updateState((currentState) => {
+    const newState = { ...currentState }
 
-  for (const side of ['player', 'computer']) {
-    const playerSide = gameState[side]
+    if (player.score > computer.score) {
+      newState.computer.gems -= 1
+      console.log('🟦 El jugador gana la ronda')
 
-    for (const type of ['unit', 'special', 'boss']) {
-      const played = playerSide.playedCards[type]
-      playerSide.deadCards.push(...played)
-      playerSide.playedCards[type] = []
+      newState.currentTurn = 'player'
+      updateTurnIcon('player')
+    } else if (computer.score > player.score) {
+      newState.player.gems -= 1
+      console.log('🟥 La IA gana la ronda')
+      newState.currentTurn = 'computer'
+      updateTurnIcon('computer')
+    } else {
+      newState.player.gems -= 1
+      newState.computer.gems -= 1
+      console.log('⚪ Ronda empatada')
+      // In case of a draw, the player who won the previous round or randomly if first round
+      newState.currentTurn = currentState.currentTurn || 'player'
+      updateTurnIcon(newState.currentTurn)
     }
-  }
 
-  player.passed = false
-  computer.passed = false
-  player.score = 0
-  computer.score = 0
-  player.bossUsed = false
-  computer.bossUsed = false
+    endGame()
 
-  gameState.battlefieldEffects = { frost: false, fog: false, rain: false }
+    for (const side of ['player', 'computer']) {
+      const playerSide = newState[side]
 
-  gameState.round += 1
+      for (const type of ['unit', 'special', 'boss']) {
+        const played = playerSide.playedCards[type]
+        playerSide.deadCards.push(...played)
+        playerSide.playedCards[type] = []
+      }
+    }
 
-  console.log(
-    `🔁 Ronda ${gameState.round - 1} finalizada. Iniciando ronda ${
-      gameState.round
-    }`
-  )
+    newState.player.passed = false
+    newState.computer.passed = false
+    newState.player.score = 0
+    newState.computer.score = 0
+    newState.player.bossUsed = false
+    newState.computer.bossUsed = false
 
-  cleanGems(player, computer)
-  cleanScores(player, computer)
-  renderDeadCardsDeck(gameState)
+    newState.battlefieldEffects = { frost: false, fog: false, rain: false }
+    newState.round += 1
+
+    console.log(
+      `🔁 Ronda ${newState.round - 1} finalizada. Iniciando ronda ${
+        newState.round
+      }`
+    )
+
+    return newState
+  })
+
+  const updatedState = gameState.getState()
+  cleanGems(updatedState.player, updatedState.computer)
+  cleanScores(updatedState.player, updatedState.computer)
+  renderDeadCardsDeck(updatedState)
   cleanBoardgame()
-  setGameState(gameState)
 
-  console.log('🎯 Nuevo estado guardado:', gameState)
+  console.log('🎯 Nuevo estado guardado:', updatedState)
+
+  handleTurn()
 }

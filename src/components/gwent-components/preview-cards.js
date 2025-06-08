@@ -1,5 +1,3 @@
-//* IMPORTS
-
 import { createElement } from '../../utils/create-elements'
 import { renderGwentBtn } from '../../components/gwent-components/render-gwentBtn'
 import {
@@ -12,13 +10,14 @@ import {
 } from '../../data/gwent-lists'
 import { handleTurn } from '../../utils/gwent-utils/turns and playing cards/handle-turns'
 import { updateTurnIcon } from '../../utils/gwent-utils/update-turn-icon'
+import { gameState } from '../../utils/gwent-utils/gameState/gameState-manager'
 import {
   highlightValidLocations,
   removeHighlights
 } from './highlight-locations'
 
 export function previewCard(target, options = {}) {
-  const { gameState = null, onUse = null } = options
+  const { onUse = null } = options
 
   if (target.closest('.discards')) {
     return
@@ -66,7 +65,8 @@ export function previewCard(target, options = {}) {
 
   const isSelectable = target.classList.contains('selectable')
   const isBoss = target.classList.contains('bossCard')
-  const bossPowerUsed = isBoss && gameState?.player?.bossUsed
+  const currentState = gameState.getState()
+  const bossPowerUsed = isBoss && currentState?.player?.bossUsed
 
   if (
     isSelectable &&
@@ -77,8 +77,15 @@ export function previewCard(target, options = {}) {
       className: 'gwentPassBtn',
       textContent: 'Use card',
       onClick: () => {
-        if (isBoss && gameState) {
-          gameState.player.bossUsed = true
+        if (isBoss && currentState) {
+          gameState.updateState((state) => ({
+            ...state,
+            player: {
+              ...state.player,
+              bossUsed: true
+            },
+            currentTurn: 'computer'
+          }))
 
           target.classList.add('bossAlreadyUsed')
 
@@ -87,10 +94,8 @@ export function previewCard(target, options = {}) {
             prevLastCard.classList.remove('lastCardPlayed')
           }
 
-          gameState.currentTurn = 'computer'
-          updateTurnIcon('computer', gameState)
-          localStorage.setItem('gwentGameState', JSON.stringify(gameState))
-          handleTurn(gameState)
+          updateTurnIcon('computer')
+          handleTurn()
 
           closeOverlay()
           return

@@ -9,11 +9,6 @@
 }
 
 .mulliganContainer {
-  // @include mixins.flex-box(
-  //   $direction: column,
-  //   $gap: vars.$gap-l,
-  //   $wrap: nowrap
-  // );
   display: grid;
   grid-template-rows: 1fr 4fr 1fr;
   gap: vars.$gap-xs;

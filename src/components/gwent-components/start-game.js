@@ -1,5 +1,3 @@
-//*IMPORTS
-
 import { createElement } from '../../utils/create-elements'
 import { getRandomItem } from '../../utils/gwent-utils/get-random-item'
 import {
@@ -13,7 +11,7 @@ import { createGameState } from '../../utils/gwent-utils/gameState/create-gameSt
 import { renderPlayerHand } from '../../utils/gwent-utils/card decks/render-player-hand'
 import { renderMulligan } from './render-mulligan'
 import { renderRemainingCardsDeck } from '../gwent-components/render-and-update-remainingCards'
-import { setGameState } from '../../utils/gwent-utils/gameState/set-gameState'
+import { gameState } from '../../utils/gwent-utils/gameState/gameState-manager'
 
 export function startGame(playerFaction) {
   document.querySelector('.gwentOverlay').remove()
@@ -51,16 +49,16 @@ export function startGame(playerFaction) {
     currentTurn
   }
 
-  const gameState = createGameState(initialGameState)
+  const newGameState = createGameState(initialGameState)
 
-  starterBosses(gameState)
-  starterGameData(gameState)
-  renderRemainingCardsDeck(gameState)
-  updateTurnIcon(currentTurn, gameState)
-  setGameState(gameState)
+  starterBosses(newGameState)
+  starterGameData(newGameState)
+  gameState.setState(newGameState)
+  renderRemainingCardsDeck(newGameState)
+  updateTurnIcon(currentTurn)
 
   setTimeout(() => {
-    renderMulligan(gameState)
+    renderMulligan(newGameState)
   }, 1000)
 }
 

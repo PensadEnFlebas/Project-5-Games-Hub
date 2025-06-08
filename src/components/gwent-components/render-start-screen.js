@@ -36,7 +36,9 @@ export function renderStartScreen() {
 
       setTimeout(() => {
         const passRoundBtn = document.querySelector('.hiddenBtn')
-        passRoundBtn.classList.remove('hiddenBtn')
+        if (passRoundBtn) {
+          passRoundBtn.classList.remove('hiddenBtn')
+        }
 
         startGame('Northern Realms')
       }, 800)
@@ -57,7 +59,9 @@ export function renderStartScreen() {
 
       setTimeout(() => {
         const passRoundBtn = document.querySelector('.hiddenBtn')
-        passRoundBtn.classList.remove('hiddenBtn')
+        if (passRoundBtn) {
+          passRoundBtn.classList.remove('hiddenBtn')
+        }
 
         startGame('Monsters')
       }, 800)

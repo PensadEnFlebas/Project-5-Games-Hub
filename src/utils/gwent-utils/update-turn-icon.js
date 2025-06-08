@@ -1,10 +1,11 @@
-export function updateTurnIcon(currentTurn, gameState) {
+import { gameState } from './gameState/gameState-manager'
+
+export function updateTurnIcon(currentTurn) {
   const icon = document.querySelector('.turnCounterIcon')
+  const state = gameState.getState()
 
   const faction =
-    currentTurn === 'player'
-      ? gameState.player.faction
-      : gameState.computer.faction
+    currentTurn === 'player' ? state.player.faction : state.computer.faction
 
   const factionIcon =
     faction === 'Northern Realms'

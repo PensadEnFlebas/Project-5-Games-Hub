@@ -4,19 +4,18 @@
 @use '../../global/mixins';
 @use '../../global/extends';
 
-.previewCardOverlay {
+.endGameOverlay {
   @extend %overlay;
-  z-index: 15;
 }
 
-.previewCardDiv {
+.endGameContainer {
   @include mixins.flex-box(
     $direction: column,
     $gap: vars.$gap-l,
     $wrap: nowrap
   );
 
-  max-width: 500px;
+  width: 70%;
   z-index: 55;
 
   background: radial-gradient(
@@ -29,34 +28,28 @@
   text-align: center;
   box-shadow: vars.$box-shadow-bossCard;
 
-  &.selectable {
-    background: radial-gradient(
-      circle,
-      rgba(23, 25, 97, 0.9) 40%,
-      rgba(62, 15, 64, 0.8) 100%
-    );
+  .endGameWinnerFaction {
+    width: 200px;
   }
 
-  .gwentCard {
-    width: 250px;
-    max-height: 400px;
-    cursor: default;
-    transform: none !important;
+  .endGameText {
+    font-size: vars.$text-font-size-xxl;
   }
 
-  .cardInfoContainer {
-    max-width: 200px;
+  .endGameWinnerImg {
+    width: 600px;
+    height: 300px;
 
-    .cardInfo {
-      font-size: vars.$text-font-size-l;
-    }
+    border-radius: 1rem;
+    box-shadow: vars.$box-shadow-bossCard;
   }
 
   .buttonsDiv {
     @include mixins.flex-box($gap: vars.$gap-m);
+    width: fit-content;
 
-    .closeGwentBtn {
-      margin: 0;
-    }
+    // .closeGwentBtn {
+    //   margin: 0;
+    // }
   }
 }

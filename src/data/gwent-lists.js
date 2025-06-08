@@ -9,6 +9,23 @@ export const northernRealmsList = [
     ability: ['morale'],
     abilityDescription:
       'Adds +1 strength to all units in the row, excluding itself',
+    useAbility: (location, gameState, cardData) => {
+      console.log('✨ Activando morale en:', location)
+
+      const isPlayer = location.startsWith('p1')
+      const playerKey = isPlayer ? 'player' : 'computer'
+      const playedUnits = gameState[playerKey].playedCards.unit
+
+      playedUnits.forEach((unitCard) => {
+        if (
+          unitCard.id !== cardData.id &&
+          unitCard.boardLocations.includes(location)
+        ) {
+          unitCard.strength += 1
+          console.log(`💪 ${unitCard.name} gana +1 de fuerza (morale)`)
+        }
+      })
+    },
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -21,6 +38,23 @@ export const northernRealmsList = [
     ability: ['morale'],
     abilityDescription:
       'Adds +1 strength to all units in the row, excluding itself',
+    useAbility: (location, gameState, cardData) => {
+      console.log('✨ Activando morale en:', location)
+
+      const isPlayer = location.startsWith('p1')
+      const playerKey = isPlayer ? 'player' : 'computer'
+      const playedUnits = gameState[playerKey].playedCards.unit
+
+      playedUnits.forEach((unitCard) => {
+        if (
+          unitCard.id !== cardData.id &&
+          unitCard.boardLocations.includes(location)
+        ) {
+          unitCard.strength += 1
+          console.log(`💪 ${unitCard.name} gana +1 de fuerza (morale)`)
+        }
+      })
+    },
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -33,6 +67,23 @@ export const northernRealmsList = [
     ability: ['morale'],
     abilityDescription:
       'Adds +1 strength to all units in the row, excluding itself',
+    useAbility: (location, gameState, cardData) => {
+      console.log('✨ Activando morale en:', location)
+
+      const isPlayer = location.startsWith('p1')
+      const playerKey = isPlayer ? 'player' : 'computer'
+      const playedUnits = gameState[playerKey].playedCards.unit
+
+      playedUnits.forEach((unitCard) => {
+        if (
+          unitCard.id !== cardData.id &&
+          unitCard.boardLocations.includes(location)
+        ) {
+          unitCard.strength += 1
+          console.log(`💪 ${unitCard.name} gana +1 de fuerza (morale)`)
+        }
+      })
+    },
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -44,6 +95,7 @@ export const northernRealmsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -55,6 +107,7 @@ export const northernRealmsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -67,6 +120,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -79,6 +133,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -91,6 +146,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -103,6 +159,7 @@ export const northernRealmsList = [
     ability: ['spy'],
     abilityDescription:
       'Place on your opponents battlefield (counts towards their total strength) then draw two new cards from your deck',
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -114,6 +171,7 @@ export const northernRealmsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -126,6 +184,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -138,6 +197,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -150,6 +210,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -161,6 +222,7 @@ export const northernRealmsList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -171,6 +233,7 @@ export const northernRealmsList = [
     strength: 4,
     type: ['unit', 'range'],
     ability: [null],
+    useAbility: undefined,
     abilityDescription: null,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
@@ -184,6 +247,7 @@ export const northernRealmsList = [
     ability: ['spy'],
     abilityDescription:
       'Place on your opponents battlefield (counts towards their total strength) then draw two new cards from your deck',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -197,6 +261,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -210,6 +275,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -223,6 +289,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -235,6 +302,7 @@ export const northernRealmsList = [
     ability: ['medic'],
     abilityDescription:
       'Choose one card from your discard pile (excluding heroes / special cards) to play instantly',
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -246,6 +314,7 @@ export const northernRealmsList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -258,6 +327,7 @@ export const northernRealmsList = [
     ability: ['spy'],
     abilityDescription:
       'Place on your opponents battlefield (counts towards their total strength) then draw two new cards from your deck',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -269,6 +339,7 @@ export const northernRealmsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -280,6 +351,7 @@ export const northernRealmsList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -291,6 +363,7 @@ export const northernRealmsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -302,6 +375,7 @@ export const northernRealmsList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -313,6 +387,7 @@ export const northernRealmsList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -324,6 +399,7 @@ export const northernRealmsList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -335,6 +411,7 @@ export const northernRealmsList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -346,6 +423,7 @@ export const northernRealmsList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -357,6 +435,7 @@ export const northernRealmsList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -369,6 +448,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -381,6 +461,7 @@ export const northernRealmsList = [
     ability: ['bond'],
     abilityDescription:
       'Place next to a card with the same name to double the strength of both cards',
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -392,6 +473,7 @@ export const northernRealmsList = [
     type: ['unit', 'hero', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -403,6 +485,7 @@ export const northernRealmsList = [
     type: ['unit', 'hero', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -414,6 +497,7 @@ export const northernRealmsList = [
     type: ['unit', 'hero', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -425,6 +509,7 @@ export const northernRealmsList = [
     type: ['unit', 'hero', 'range'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   }
 ]
@@ -451,6 +536,7 @@ export const northernRealmBosses = [
     strength: 0,
     type: 'boss',
     power: 'Clear any weather effects (on both sides) currently in play',
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
   {
@@ -462,6 +548,7 @@ export const northernRealmBosses = [
     strength: 0,
     type: 'boss',
     power: 'Pick an Impenetrable Fog card from your deck and play it instantly',
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
   {
@@ -474,6 +561,7 @@ export const northernRealmBosses = [
     type: 'boss',
     power:
       "Destroy opponent's strongest Siege units if the strength of that row is 10 or higher",
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   }
 ]
@@ -501,6 +589,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -513,6 +602,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -525,6 +615,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -537,6 +628,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -549,6 +641,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -560,6 +653,7 @@ export const monstersList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -571,6 +665,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -582,6 +677,7 @@ export const monstersList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -594,6 +690,7 @@ export const monstersList = [
     ability: ['agile'],
     abilityDescription:
       'Can be placed in either the Close Combat or the Ranged Combat row. Cannot be moved once placed',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:battlefield',
       'pc-melee:battlefield',
@@ -611,6 +708,7 @@ export const monstersList = [
     ability: ['agile'],
     abilityDescription:
       'Can be placed in either the Close Combat or the Ranged Combat row. Cannot be moved once placed',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:battlefield',
       'pc-melee:battlefield',
@@ -627,6 +725,7 @@ export const monstersList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -638,6 +737,7 @@ export const monstersList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -650,6 +750,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -662,6 +763,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -674,6 +776,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -686,6 +789,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -698,6 +802,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -710,6 +815,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -722,6 +828,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -733,6 +840,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -745,6 +853,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -756,6 +865,7 @@ export const monstersList = [
     type: ['unit', 'range'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -767,6 +877,7 @@ export const monstersList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -778,6 +889,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -789,6 +901,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -800,6 +913,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -811,6 +925,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -822,6 +937,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -833,6 +949,7 @@ export const monstersList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -845,6 +962,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -857,6 +975,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -869,6 +988,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -881,6 +1001,7 @@ export const monstersList = [
     ability: ['muster'],
     abilityDescription:
       'Find any cards with the same name in your deck and play them instantly',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -892,6 +1013,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -903,6 +1025,7 @@ export const monstersList = [
     type: ['unit', 'siege'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -915,6 +1038,7 @@ export const monstersList = [
     ability: ['hero', 'agile', 'morale'],
     abilityDescription:
       'Hero - Not affected by any Special Cards or abilities; Agile - Can be placed in either the Close Combat or the Ranged Combat row. Cannot be moved once placed; Morale Boost - Adds +1 to all the units in the row (excluding itself)',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:battlefield',
       'pc-melee:battlefield',
@@ -931,6 +1055,7 @@ export const monstersList = [
     type: ['unit', 'range'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -942,6 +1067,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -953,6 +1079,7 @@ export const monstersList = [
     type: ['unit', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by any Special Cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   }
 ]
@@ -967,6 +1094,7 @@ export const monstersBosses = [
     strength: 0,
     type: 'boss',
     power: 'Discard 2 cards and draw 1 card of your choice from your deck',
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
   {
@@ -978,6 +1106,7 @@ export const monstersBosses = [
     strength: 0,
     type: 'boss',
     power: 'Pick any weather card from your deck and play it instantly',
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
   {
@@ -990,6 +1119,7 @@ export const monstersBosses = [
     type: 'boss',
     power:
       "Double the strength of all your Close Combat units (unless a Commander's Horn is also present on that row)",
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
   {
@@ -1001,6 +1131,7 @@ export const monstersBosses = [
     strength: 0,
     type: 'boss',
     power: 'Restore a card from your discard pile to your hand',
+    useAbility: undefined,
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   }
 ]
@@ -1016,6 +1147,7 @@ export const neutralCardsList = [
     ability: ['decoy'],
     abilityDescription:
       'Swap with a card on the battlefield to return it to your hand',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:battlefield',
       'pc-melee:battlefield',
@@ -1035,6 +1167,7 @@ export const neutralCardsList = [
     ability: ['decoy'],
     abilityDescription:
       'Swap with a card on the battlefield to return it to your hand',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:battlefield',
       'pc-melee:battlefield',
@@ -1054,6 +1187,7 @@ export const neutralCardsList = [
     ability: ['decoy'],
     abilityDescription:
       'Swap with a card on the battlefield to return it to your hand',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:battlefield',
       'pc-melee:battlefield',
@@ -1073,6 +1207,7 @@ export const neutralCardsList = [
     ability: ['horn'],
     abilityDescription:
       'Doubles the strength of all unit cards in a row. Limited to 1 per row',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:horn',
       'pc-melee:horn',
@@ -1092,6 +1227,7 @@ export const neutralCardsList = [
     ability: ['horn'],
     abilityDescription:
       'Doubles the strength of all unit cards in a row. Limited to 1 per row',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:horn',
       'pc-melee:horn',
@@ -1111,6 +1247,7 @@ export const neutralCardsList = [
     ability: ['horn'],
     abilityDescription:
       'Doubles the strength of all unit cards in a row. Limited to 1 per row',
+    useAbility: undefined,
     boardLocations: [
       'p1-melee:horn',
       'pc-melee:horn',
@@ -1130,6 +1267,7 @@ export const neutralCardsList = [
     ability: ['scorch'],
     abilityDescription:
       'Discard after playing. Kills the strongest card(s) in the battlefield',
+    useAbility: undefined,
     boardLocations: []
   },
   {
@@ -1142,6 +1280,7 @@ export const neutralCardsList = [
     ability: ['scorch'],
     abilityDescription:
       'Discard after playing. Kills the strongest card(s) in the battlefield',
+    useAbility: undefined,
     boardLocations: []
   },
   {
@@ -1154,6 +1293,7 @@ export const neutralCardsList = [
     ability: ['scorch'],
     abilityDescription:
       'Discard after playing. Kills the strongest card(s) in the battlefield',
+    useAbility: undefined,
     boardLocations: []
   },
   {
@@ -1166,6 +1306,7 @@ export const neutralCardsList = [
     ability: ['frost'],
     abilityDescription:
       'Sets the strength of all Close Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1178,6 +1319,7 @@ export const neutralCardsList = [
     ability: ['frost'],
     abilityDescription:
       'Sets the strength of all Close Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1190,6 +1332,7 @@ export const neutralCardsList = [
     ability: ['frost'],
     abilityDescription:
       'Sets the strength of all Close Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1202,6 +1345,7 @@ export const neutralCardsList = [
     ability: ['fog'],
     abilityDescription:
       'Sets the strength of all Ranged Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1214,6 +1358,7 @@ export const neutralCardsList = [
     ability: ['fog'],
     abilityDescription:
       'Sets the strength of all Ranged Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1226,6 +1371,7 @@ export const neutralCardsList = [
     ability: ['fog'],
     abilityDescription:
       'Sets the strength of all Ranged Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1238,6 +1384,7 @@ export const neutralCardsList = [
     ability: ['rain'],
     abilityDescription:
       'Sets the strength of all Siege Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1250,6 +1397,7 @@ export const neutralCardsList = [
     ability: ['rain'],
     abilityDescription:
       'Sets the strength of all Siege Combat cards to 1 for both players',
+    useAbility: undefined,
     boardLocations: ['p1-melee:special-cards', 'pc-melee:special-cards']
   },
   {
@@ -1262,6 +1410,7 @@ export const neutralCardsList = [
     ability: ['sun'],
     abilityDescription:
       'Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects',
+    useAbility: undefined,
     boardLocations: []
   },
   {
@@ -1274,6 +1423,7 @@ export const neutralCardsList = [
     ability: ['sun'],
     abilityDescription:
       'Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects',
+    useAbility: undefined,
     boardLocations: []
   },
   {
@@ -1286,6 +1436,7 @@ export const neutralCardsList = [
     ability: ['dandelionHorn'],
     abilityDescription:
       "Doubles the strength of all unit cards in close combat row excepts itself, unless a Commander's Horn is already in play on that row",
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1297,6 +1448,7 @@ export const neutralCardsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1308,6 +1460,7 @@ export const neutralCardsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1319,6 +1472,7 @@ export const neutralCardsList = [
     type: ['unit', 'melee'],
     ability: [null],
     abilityDescription: null,
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1331,6 +1485,7 @@ export const neutralCardsList = [
     ability: ['dragonScorch'],
     abilityDescription:
       "Destroy your enemy's strongest close combat unit(s) if the combined strength of all of his or her combat unit(s) is 10 or more",
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1343,6 +1498,7 @@ export const neutralCardsList = [
     ability: ['hero', 'spy'],
     abilityDescription:
       "Hero - Not affected by any Special Cards or abilities; Spy - Place on your opponent's battlefield (count towards opponent's total) and draw 2 cards from your deck",
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1354,6 +1510,7 @@ export const neutralCardsList = [
     type: ['unit', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by special cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1366,6 +1523,7 @@ export const neutralCardsList = [
     ability: ['hero', 'medic'],
     abilityDescription:
       'Hero - Not affected by special cards or abilities; Medic - Choose one card from your discard pile and play it instantly (no Heroes or Special Cards)',
+    useAbility: undefined,
     boardLocations: ['p1-range:battlefield', 'pc-range:battlefield']
   },
   {
@@ -1377,6 +1535,7 @@ export const neutralCardsList = [
     type: ['unit', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by special cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1388,6 +1547,7 @@ export const neutralCardsList = [
     type: ['unit', 'melee'],
     ability: ['hero'],
     abilityDescription: 'Not affected by special cards or abilities',
+    useAbility: undefined,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   }
 ]

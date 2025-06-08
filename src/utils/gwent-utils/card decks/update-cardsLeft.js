@@ -1,4 +1,6 @@
-export function updateCardsLeft(location, gameState) {
+import { gameState } from '../gameState/gameState-manager'
+
+export function updateCardsLeft(location) {
   const isPlayer = location.includes('p1')
   const isComputer = location.includes('pc')
 
@@ -15,7 +17,8 @@ export function updateCardsLeft(location, gameState) {
     return
   }
 
-  const cardsLeft = gameState[playerKey].hand.length
+  const currentState = gameState.getState()
+  const cardsLeft = currentState[playerKey].hand.length
 
   const cell = document.querySelector(`.cell.${rowClass}.special-cards`)
 

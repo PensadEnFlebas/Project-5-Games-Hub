@@ -1,5 +1,3 @@
-//* IMPORTS
-
 import {
   northernRealmsList,
   monstersList,

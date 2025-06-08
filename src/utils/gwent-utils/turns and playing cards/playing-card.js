@@ -1,25 +1,19 @@
-//* IMPORTS
-
 import { renderCard } from '../../../components/gwent-components/render-card'
 import { renderPlayerHand } from '../card decks/render-player-hand'
 import { playCard } from '../sounds/play-card'
 import { updateScore } from '../check winner/update-score'
 import { updateCardsLeft } from '../card decks/update-cardsLeft'
 import { adjustCardStack } from '../card decks/adjust-card-stack'
-import { getGameState } from '../gameState/get-gameState'
-import { setGameState } from '../gameState/set-gameState'
+import { gameState } from '../gameState/gameState-manager'
 
-export function playingCard(
-  cardData,
-  indexCardInHand,
-  gameState,
-  targetCell = null
-) {
-  console.log(gameState.computer.score)
-  console.log(gameState.player.score)
+export function playingCard(cardData, indexCardInHand, targetCell = null) {
+  const state = gameState.getState()
 
-  const currentTurn = gameState.currentTurn
-  const currentPlayer = gameState[currentTurn]
+  console.log(state.computer.score)
+  console.log(state.player.score)
+
+  const currentTurn = state.currentTurn
+  const currentPlayer = state[currentTurn]
   const isPlayer = currentTurn === 'player'
 
   if (cardData.boardLocations.length === 0) {
@@ -30,13 +24,16 @@ export function playingCard(
 
     // PONER AQUÍ LA LÓGICA DE LAS SPECIAL-cardDataS QUE SE ELIMINAN TRAS JUGARLAS: por ejemplo: if (cardData.effect === 'clearWeather') { ... }
 
-    currentPlayer.hand.splice(indexCardInHand, 1)
+    gameState.updateState((state) => {
+      const newState = { ...state }
+      newState[currentTurn].hand.splice(indexCardInHand, 1)
+      newState.lastCardPlayed = cardData
+      return newState
+    })
 
     if (isPlayer) {
       renderPlayerHand(gameState.player.hand)
     }
-
-    gameState.lastCardPlayed = cardData
 
     return
   }
@@ -50,10 +47,15 @@ export function playingCard(
     location = cardData.boardLocations[locationIndex]
   }
 
-  currentPlayer.hand.splice(indexCardInHand, 1)
+  gameState.updateState((state) => {
+    const newState = { ...state }
+    newState[currentTurn].hand.splice(indexCardInHand, 1)
+    return newState
+  })
 
   if (isPlayer) {
-    renderPlayerHand(gameState.player.hand)
+    const updatedState = gameState.getState()
+    renderPlayerHand(updatedState.player.hand)
   }
 
   if (targetCell) {
@@ -83,8 +85,8 @@ export function playingCard(
     }
   }
 
-  updateScore(location, cardData.strength, gameState)
-  updateCardsLeft(location, gameState)
+  updateScore(location, cardData.strength)
+  updateCardsLeft(location)
 
   const typeKey = cardData.type.includes('boss')
     ? 'boss'
@@ -92,9 +94,10 @@ export function playingCard(
     ? 'special'
     : 'unit'
 
-  currentPlayer.playedCards[typeKey].push(cardData)
-
-  gameState.lastCardPlayed = cardData
-
-  setGameState(gameState)
+  gameState.updateState((state) => {
+    const newState = { ...state }
+    newState[currentTurn].playedCards[typeKey].push(cardData)
+    newState.lastCardPlayed = cardData
+    return newState
+  })
 }
