@@ -39,6 +39,31 @@
         filter: vars.$hover-drop-shadow;
       }
     }
+
+    .gwentLastCardPlayedText {
+      margin-top: vars.$margin-s;
+      color: vars.$text-color;
+      font-family: vars.$gwent-text-font;
+      font-size: vars.$text-font-size-xl;
+      text-align: center;
+
+      span {
+        color: vars.$span-color;
+        text-shadow: vars.$text-shadow-span;
+      }
+    }
+
+    .gwentComputerPassesText {
+      color: vars.$text-color;
+      font-family: vars.$gwent-text-font;
+      font-size: vars.$text-font-size-xl;
+      text-align: center;
+
+      span {
+        color: vars.$span-color;
+        text-shadow: vars.$text-shadow-span;
+      }
+    }
   }
 
   .gwentBoard {

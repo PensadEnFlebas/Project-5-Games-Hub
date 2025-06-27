@@ -84,6 +84,16 @@ export function gwent() {
     }
   })
 
+  const gwentLastCardPlayedText = createElement('h4', {
+    className: 'gwentLastCardPlayedText',
+    textContent: ''
+  })
+
+  const gwentComputerPassesText = createElement('h4', {
+    className: 'gwentComputerPassesText',
+    textContent: ''
+  })
+
   const gwentContainer = createElement('div', {
     className: 'gwentContainer'
   })
@@ -112,7 +122,9 @@ export function gwent() {
     gwentLogo,
     gwentPassBtn,
     turnCounter,
-    gwentResetBtn
+    gwentResetBtn,
+    gwentLastCardPlayedText,
+    gwentComputerPassesText
   )
   gwentContainer.append(gwentBoard, playerCardsContainer)
   gwentSection.append(gwentTurnCounterDiv, gwentContainer)

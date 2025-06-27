@@ -36,10 +36,17 @@ export function checkWinner() {
       newState.player.gems -= 1
       newState.computer.gems -= 1
       console.log('⚪ Ronda empatada')
-      // In case of a draw, the player who won the previous round or randomly if first round
+
       newState.currentTurn = currentState.currentTurn || 'player'
       updateTurnIcon(newState.currentTurn)
     }
+
+    const allBattlefieldCells = document.querySelectorAll(
+      '.cell.battlefield.weatherAffected'
+    )
+    allBattlefieldCells.forEach((cell) => {
+      cell.classList.remove('weatherAffected')
+    })
 
     endGame()
 

@@ -1,0 +1,58 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+@use '../../global/extends';
+
+.decoyMulliganOverlay {
+  @extend %overlay;
+}
+
+.decoyMulliganContainer {
+  display: grid;
+  grid-template-rows: 1fr 4fr 1fr;
+  gap: vars.$gap-xs;
+  max-width: 90%;
+
+  align-items: center;
+  justify-items: center;
+
+  background: radial-gradient(
+    circle,
+    rgba(23, 25, 97, 0.9) 40%,
+    rgba(62, 15, 64, 0.8) 100%
+  );
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: vars.$box-shadow-bossCard;
+
+  .decoyMulliganText {
+    font-size: vars.$text-font-size-l;
+  }
+
+  .decoyMulliganCardsDiv {
+    @include mixins.flex-box($gap: vars.$gap-xs);
+
+    width: 100%;
+    height: fit-content;
+
+    .decoyMulliganCard {
+      width: 100px;
+      max-height: 200px;
+      cursor: default;
+      transform: none !important;
+      cursor: pointer;
+
+      &.selectedForSwap {
+        box-shadow: vars.$box-shadow-selectedCard;
+        transform: scale(1.2) !important;
+      }
+    }
+  }
+
+  .confirmSwapBtn {
+    max-height: 50px;
+    margin: auto;
+  }
+}

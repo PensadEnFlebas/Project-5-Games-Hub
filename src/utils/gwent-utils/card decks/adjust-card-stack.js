@@ -1,5 +1,5 @@
 export function adjustCardStack(cell) {
-  if (!cell.classList.contains('battlefield')) return
+  if (!cell || !cell.classList.contains('battlefield')) return
 
   const cards = [...cell.querySelectorAll('.gwentCard')]
   console.log('Cartas en cell:', cards)

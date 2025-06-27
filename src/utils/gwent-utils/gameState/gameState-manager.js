@@ -116,8 +116,8 @@ class GameStateManager {
     }))
   }
 
-  updateScore(isPlayer, points) {
-    this.updateState((state) => ({
+  calculateScore(isPlayer, points) {
+    this.calculateState((state) => ({
       ...state,
       player: {
         ...state.player,
@@ -133,11 +133,80 @@ class GameStateManager {
   resetRoundScores() {
     this.updateState((state) => ({
       ...state,
-      player: { ...state.player, score: 0, passed: false },
-      computer: { ...state.computer, score: 0, passed: false },
+      player: {
+        ...state.player,
+        score: 0,
+        passed: false
+        // deadCards: this._resetDeadCardsStrength(state.player.deadCards)
+      },
+      computer: {
+        ...state.computer,
+        score: 0,
+        passed: false
+        // deadCards: this._resetDeadCardsStrength(state.player.deadCards)
+      },
       round: state.round + 1
     }))
   }
+
+  // _resetDeadCardsStrength(deadCards) {
+  //   const updatedDeadCards = {}
+
+  //   for (const cardType in deadCards) {
+  //     updatedDeadCards[cardType] = deadCards[cardType].map((card) => ({
+  //       ...card,
+  //       strength: card.baseStrength
+  //     }))
+  //   }
+
+  //   return updatedDeadCards
+  // }
+
+  updateCard(card, currentPlayer, cardType) {
+    this.updateState((state) => ({
+      ...state,
+      [currentPlayer]: {
+        ...state[currentPlayer],
+        playedCards: {
+          ...state[currentPlayer].playedCards,
+          [cardType]: state[currentPlayer].playedCards[cardType].map(
+            (stateCard) => (stateCard.id === card.id ? card : stateCard)
+          )
+        }
+      }
+    }))
+  }
+
+  // resetCardStrengths(currentPlayer = null) {
+  //   this.updateState((state) => {
+  //     const players = currentPlayer ? [currentPlayer] : ['player', 'computer']
+
+  //     const updatedPlayers = {}
+
+  //     for (const playerKey of players) {
+  //       const playedCards = state[playerKey].playedCards
+
+  //       const updatedPlayedCards = {}
+
+  //       for (const cardType in playedCards) {
+  //         updatedPlayedCards[cardType] = playedCards[cardType].map((card) => ({
+  //           ...card,
+  //           strength: card.baseStrength
+  //         }))
+  //       }
+
+  //       updatedPlayers[playerKey] = {
+  //         ...state[playerKey],
+  //         playedCards: updatedPlayedCards
+  //       }
+  //     }
+
+  //     return {
+  //       ...state,
+  //       ...updatedPlayers
+  //     }
+  //   })
+  // }
 }
 
 // === SINGLETON PATTERN ===

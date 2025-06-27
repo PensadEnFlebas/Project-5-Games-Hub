@@ -8,11 +8,16 @@ import { computerShouldPass } from '../computer game logic/computer-should-pass.
 import { gameState } from '../gameState/gameState-manager.js'
 
 export function handleTurn() {
+  updateComputerPassesText()
+
   const state = gameState.getState()
   console.log('handleTurn gameState: ', state)
 
+  if (state.medicMulliganActive || state.decoyMulliganActive) return
+
   if (state.player.passed && state.computer.passed) {
     console.log('🔚 Ambos jugadores pasaron. Se valida ganador de la ronda.')
+
     checkWinner()
     return
   }
@@ -30,6 +35,7 @@ function enablePlayerTurn() {
   if (state.player.passed) {
     console.log('❌ Ya has pasado esta ronda. Espera a la siguiente.')
     gameState.switchTurn()
+    updateTurnIcon(gameState.currentTurn)
     handleTurn()
     return
   }
@@ -73,6 +79,7 @@ function enablePlayerTurn() {
           playingCard(selectedCard, indexCardInHand, cell)
 
           gameState.switchTurn()
+          updateTurnIcon(gameState.currentTurn)
           handleTurn()
         }
       })
@@ -97,12 +104,23 @@ function handleComputerTurn() {
   const hand = state.computer.hand
   const shouldPass = computerShouldPass()
 
+  console.log(
+    '🔍 Antes del setTimeout, decoyMulliganActive:',
+    state.decoyMulliganActive
+  )
+
   setTimeout(() => {
-    // Get fresh state in case something changed during timeout
     const currentState = gameState.getState()
 
+    console.log(
+      '⏱️ Dentro del setTimeout, decoyMulliganActive:',
+      currentState.decoyMulliganActive
+    )
+
+    if (currentState.decoyMulliganActive || currentState.medicMulliganActive)
+      return
+
     if (shouldPass) {
-      // Update computer passed status and switch turn
       gameState.updateState((state) => ({
         ...state,
         computer: {
@@ -119,14 +137,12 @@ function handleComputerTurn() {
       return
     }
 
-    // Get fresh hand in case it changed
     const freshHand = currentState.computer.hand
     const card = getRandomItem(freshHand)
     const indexCardInHand = freshHand.findIndex((c) => c.id === card.id)
 
     if (indexCardInHand === -1) return
 
-    // Find valid locations
     const validLocations = card.boardLocations.filter((location) => {
       const [row, column] = location.split(':')
       const cell = document.querySelector(`.cell.${row}.${column}`)
@@ -141,7 +157,6 @@ function handleComputerTurn() {
       return hasBattlefieldCards && hornIsEmpty
     })
 
-    // Find best horn location if available
     let targetCell = null
     if (validLocations.some((loc) => loc.includes(':horn'))) {
       const hornLocations = validLocations.filter((loc) =>
@@ -166,9 +181,22 @@ function handleComputerTurn() {
 
     playingCard(card, indexCardInHand, targetCell)
 
-    // Switch turn back to player
     gameState.switchTurn()
     updateTurnIcon('player')
     handleTurn()
   }, 3000)
+}
+
+//? HELPING FUNCTIONS
+
+function updateComputerPassesText() {
+  const cardTextEl = document.querySelector('.gwentComputerPassesText')
+  if (!cardTextEl) return
+
+  const state = gameState.getState()
+  if (state.computer.passed) {
+    cardTextEl.innerHTML = `<span>Computer</span> has passed turn!`
+  } else {
+    cardTextEl.innerHTML = ''
+  }
 }

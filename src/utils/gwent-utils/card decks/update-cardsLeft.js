@@ -1,6 +1,8 @@
 import { gameState } from '../gameState/gameState-manager'
 
 export function updateCardsLeft(location) {
+  if (!location || typeof location !== 'string') return
+
   const isPlayer = location.includes('p1')
   const isComputer = location.includes('pc')
 

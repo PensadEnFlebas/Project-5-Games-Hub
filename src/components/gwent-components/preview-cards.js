@@ -103,7 +103,6 @@ export function previewCard(target, options = {}) {
 
         const hasMultipleLocations =
           cardData.ability.includes('agile') ||
-          cardData.ability.includes('decoy') ||
           cardData.ability.includes('horn')
 
         if (hasMultipleLocations) {

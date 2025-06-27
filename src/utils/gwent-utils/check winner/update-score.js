@@ -1,46 +1,32 @@
 import { gameState } from '../gameState/gameState-manager'
 
-export function updateScore(location, strength) {
-  if (typeof strength !== 'number' || isNaN(strength)) {
-    return
-  }
+export function updateScore(owner) {
+  const state = gameState.getState()
+  const played = state[owner].playedCards
 
-  const isPlayer = location.includes('p1')
-  const isComputer = location.includes('pc')
+  const types = ['unit', 'boss', 'special']
+  let totalScore = 0
 
-  let playerKey
-  let rowClass
+  types.forEach((type) => {
+    played[type].forEach((card) => {
+      totalScore += card.strength
+    })
+  })
 
-  if (isPlayer) {
-    gameState.updateState((state) => ({
-      ...state,
-      player: {
-        ...state.player,
-        score: state.player.score + strength
-      }
-    }))
-    playerKey = 'player'
-    rowClass = 'p1-range'
-  } else if (isComputer) {
-    gameState.updateState((state) => ({
-      ...state,
-      computer: {
-        ...state.computer,
-        score: state.computer.score + strength
-      }
-    }))
-    playerKey = 'computer'
-    rowClass = 'pc-range'
-  } else {
-    return
-  }
+  gameState.updateState((state) => ({
+    ...state,
+    [owner]: {
+      ...state[owner],
+      score: totalScore
+    }
+  }))
 
-  const cell = document.querySelector(`.cell.${rowClass}.special-cards`)
-  const playerText = cell.querySelector('.playerText')
+  const playerText = document.querySelector(
+    `.cell.${owner === 'player' ? 'p1' : 'pc'}-range .playerText`
+  )
 
   if (playerText) {
-    const name = playerKey === 'player' ? 'PLAYER' : 'COMPUTER'
-    const currentState = gameState.getState()
-    playerText.textContent = `${name}: ${currentState[playerKey].score}`
+    const name = owner === 'player' ? 'PLAYER' : 'COMPUTER'
+    playerText.textContent = `${name}: ${totalScore}`
   }
 }

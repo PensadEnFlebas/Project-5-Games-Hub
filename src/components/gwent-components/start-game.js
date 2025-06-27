@@ -51,6 +51,13 @@ export function startGame(playerFaction) {
 
   const newGameState = createGameState(initialGameState)
 
+  const allBattlefieldCells = document.querySelectorAll(
+    '.cell.battlefield.weatherAffected'
+  )
+  allBattlefieldCells.forEach((cell) => {
+    cell.classList.remove('weatherAffected')
+  })
+
   starterBosses(newGameState)
   starterGameData(newGameState)
   gameState.setState(newGameState)

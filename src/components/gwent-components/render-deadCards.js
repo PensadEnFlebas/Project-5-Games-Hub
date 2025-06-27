@@ -6,6 +6,34 @@ import { cardBackList } from '../../data/gwent-lists'
 export function renderDeadCardsDeck(gameState) {
   const { player, computer } = gameState
 
+  player.deadCards.forEach((card) => {
+    if (!card.originalBaseStrength) {
+      card.originalBaseStrength = card.baseStrength
+      card.strength = card.originalBaseStrength
+    } else {
+      card.baseStrength = card.originalBaseStrength
+      card.strength = card.originalBaseStrength
+    }
+
+    if (card._decoyUsed) delete card._decoyUsed
+
+    if (card.spyApplied) delete card.spyApplied
+  })
+
+  computer.deadCards.forEach((card) => {
+    if (!card.originalBaseStrength) {
+      card.originalBaseStrength = card.baseStrength
+      card.strength = card.originalBaseStrength
+    } else {
+      card.baseStrength = card.originalBaseStrength
+      card.strength = card.originalBaseStrength
+    }
+
+    if (card._decoyUsed) delete card._decoyUsed
+
+    if (card.spyApplied) delete card.spyApplied
+  })
+
   const playerDeadCards = player.deadCards.length
   const computerDeadCards = computer.deadCards.length
 

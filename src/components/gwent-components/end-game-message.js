@@ -5,6 +5,8 @@ import { openCloseSection } from '../../utils/open-close-sections'
 import { restartGame } from '../../utils/gwent-utils/restart-game'
 import { renderGwentBtn } from './render-gwentBtn'
 import { gameState } from '../../utils/gwent-utils/gameState/gameState-manager'
+import { playVictory } from '../../utils/gwent-utils/sounds/play-victory'
+import { playDefeat } from '../../utils/gwent-utils/sounds/play-defeat'
 
 export function endGameMessage(winner) {
   const endGameOverlay = createElement('div', {
@@ -96,4 +98,12 @@ export function endGameMessage(winner) {
   )
   endGameOverlay.appendChild(endGameContainer)
   document.body.appendChild(endGameOverlay)
+
+  setTimeout(() => {
+    if (winner.toLowerCase() === 'player') {
+      playVictory()
+    } else {
+      playDefeat()
+    }
+  }, 1200)
 }
