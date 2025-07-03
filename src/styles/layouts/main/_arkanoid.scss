@@ -1,0 +1,121 @@
+//* IMPORTS
+
+@use '../../global/vars';
+@use '../../global/mixins';
+@use '../../global/extends';
+
+#arkanoid {
+  @include mixins.flex-box($direction: column, $gap: 30px);
+  display: none;
+
+  height: 100%;
+
+  .logoContainer {
+    @include mixins.flex-box($jc: space-between);
+    width: 80%;
+    max-width: 580px;
+  }
+
+  canvas {
+    @include mixins.flex-box();
+
+    border: 6px solid vars.$quaternary-color;
+    border-bottom: none;
+    border-radius: 5px;
+    background-image: url('/public/assets/bg2.jpg');
+    background-size: cover;
+  }
+
+  .scoreContainer {
+    @include mixins.flex-box($jc: space-between, $gap: 30px);
+
+    width: 80%;
+    max-width: 600px;
+    border: 2px solid vars.$quaternary-color;
+    border-radius: vars.$border-radius-xxs;
+
+    font-family: vars.$titles-font;
+    color: vars.$secondary-color;
+    padding: vars.$padding-xs;
+
+    backdrop-filter: blur(6px);
+
+    h3 {
+      font-size: vars.$text-font-size-xl;
+    }
+
+    h4 {
+      font-size: vars.$text-font-size-m;
+    }
+
+    span {
+      color: vars.$tertiary-color;
+    }
+  }
+}
+
+.pauseStartBtn,
+.arkanoidOverlayBtn {
+  width: 200px;
+  background: vars.$quaternary-color;
+  color: vars.$text-color;
+  padding: vars.$padding-s vars.$padding-m;
+  font-family: vars.$gwent-text-font;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  border: 1px outset vars.$primary-color;
+  border-radius: vars.$border-radius-l;
+  outline: none;
+  padding: vars.$padding-xs vars.$padding-m;
+
+  box-shadow: 0px 8px 0px 0px vars.$bg-btn-dark;
+  transition: all 0.3s ease-out;
+  transform: translateY(0px) translatex(0px);
+  filter: vars.$button-drop-shadow;
+
+  &:active {
+    border: 1px outset vars.$transparent-color;
+    box-shadow: none;
+
+    transform: translateY(vars.$spacing-rem-xs) translateX(0px);
+  }
+}
+
+.canvasContainer {
+  position: relative;
+}
+
+#arkanoidShadowedLogo,
+.arkanoidOverlayLogo {
+  width: 200px;
+
+  filter: vars.$arkanoid-logo-drop-shadow;
+}
+
+#ball {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.arkanoidOverlay {
+  @extend %overlay;
+  z-index: 15;
+
+  &.hidden {
+    display: none;
+  }
+
+  .arkanoidOverlayContainer {
+    @include mixins.flex-box($direction: column, $gap: vars.$gap-s);
+
+    border: 3px solid vars.$quaternary-color;
+    border-radius: vars.$border-radius-s;
+    padding: 40px;
+    background-color: rgba(42, 31, 31, 0.687);
+
+    max-height: 500px;
+    color: vars.$tertiary-color;
+  }
+}

@@ -57,7 +57,7 @@ $tertiary-color: #e5e559;
 $quaternary-color: #cb38f7;
 $cardBack-deck-color: #99939ccc;
 
-$gem-color: rgb(155, 51, 51);
+$gem-color: #9b3333;
 
 $bg-btn: $quaternary-color;
 $bg-btn-dark: #662b7c;
@@ -133,6 +133,7 @@ $hover-drop-shadow: drop-shadow(0px 0px 5px $tertiary-color);
 $button-drop-shadow: drop-shadow(0px 5px 5px #b9479b);
 $gwent-drop-shadow: drop-shadow(0px 0px 4px $tertiary-color);
 $gwent-gem-drop-shadow: drop-shadow(0px 0px 4px $secondary-color);
+$arkanoid-logo-drop-shadow: drop-shadow(6px 8px 2px $quaternary-color);
 
 $box-shadow: 5px 5px 15px 5px $primary-color;
 $box-shadow-gwent: inset -2px 4px 8px 8px $primary-color;

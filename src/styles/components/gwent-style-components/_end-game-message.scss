@@ -47,9 +47,5 @@
   .buttonsDiv {
     @include mixins.flex-box($gap: vars.$gap-m);
     width: fit-content;
-
-    // .closeGwentBtn {
-    //   margin: 0;
-    // }
   }
 }

@@ -1,3 +1,5 @@
+//* IMPORTS
+
 import { createElement } from '../../utils/create-elements'
 import { restartGame } from '../../utils/gwent-utils/restart-game'
 import { renderGwentBtn } from '../../components/gwent-components/render-gwentBtn'
