@@ -1,17 +1,10 @@
 //*IMPORTS
 
 import { gameStatus } from '../../layouts/main/tic-tac-toe'
-import {
-  checkWinner,
-  getWinnerCombo
-} from '../../utils/ticTacToe-utils/check-winner'
-import { getScores } from '../../utils/ticTacToe-utils/scores/get-scores'
-import { printScores } from '../../utils/ticTacToe-utils/scores/print-scores'
-import { saveScores } from '../../utils/ticTacToe-utils/scores/save-scores'
-import { updateScores } from '../../utils/ticTacToe-utils/scores/update-scores'
-import { highlightForWinner } from './highlight-for-winner'
+import { checkWinner } from '../../utils/ticTacToe-utils/check-winner'
 import { playMarkSound } from '../../utils/ticTacToe-utils/sounds/play-markSound'
-import { playWinnerSound } from '../../utils/ticTacToe-utils/sounds/play-winnerSound'
+import { handleEndGame } from '../../utils/ticTacToe-utils/handle-endgame'
+import { toggleBoxes } from '../../utils/ticTacToe-utils/enable-and-disable-board-pointer-events'
 
 export function drawX(target, turn, computerMove) {
   target.addEventListener(
@@ -28,38 +21,26 @@ export function drawX(target, turn, computerMove) {
         const winner = checkWinner()
 
         if (winner) {
-          const combo = winner === 'draw' ? [] : getWinnerCombo()
-          highlightForWinner(combo)
-
-          if (combo.length) {
-            playWinnerSound()
-          }
-          updateScores(winner)
-          saveScores(getScores())
-
-          const playerScore = document.querySelector('.tttScorePlayer')
-          const computerScore = document.querySelector('.tttScoreComputer')
-          const drawScore = document.querySelector('.tttScoreDraw')
-          printScores({ playerScore, computerScore, drawScore })
-
-          gameStatus.gameOver = true
+          handleEndGame(winner)
           return
         }
 
         turn.isMyTurn = !turn.isMyTurn
         document.body.style.cursor = 'wait'
-        document.querySelectorAll('.tttBox').forEach((box) => {
-          box.style.cursor = 'wait'
-        })
+        toggleBoxes(true)
+        // document.querySelectorAll('.tttBox').forEach((box) => {
+        //   box.style.cursor = 'wait'
+        // })
 
         setTimeout(() => {
           if (!gameStatus.gameOver) {
             computerMove()
           }
           document.body.style.cursor = 'default'
-          document.querySelectorAll('.tttBox').forEach((box) => {
-            box.style.cursor = 'pointer'
-          })
+          toggleBoxes(false)
+          // document.querySelectorAll('.tttBox').forEach((box) => {
+          //   box.style.cursor = 'pointer'
+          // })
         }, 1000)
       }
     },

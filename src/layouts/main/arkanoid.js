@@ -115,7 +115,11 @@ function startGame() {
           isBrickOnScreen: true,
           hitsLeft: 2,
           score: 2,
-          color: '#cb38f7'
+          background: [
+            { offset: 0, color: 'rgba(2, 0, 36, 1)' },
+            { offset: 0.35, color: 'rgba(102, 9, 121, 1)' },
+            { offset: 1, color: 'rgba(255, 0, 106, 1)' }
+          ]
         }
       } else if (r === 1) {
         bricks[c][r] = {
@@ -124,7 +128,7 @@ function startGame() {
           isBrickOnScreen: false,
           hitsLeft: 0,
           score: 0,
-          color: ''
+          background: []
         }
       } else {
         bricks[c][r] = {
@@ -133,7 +137,11 @@ function startGame() {
           isBrickOnScreen: true,
           hitsLeft: 1,
           score: 1,
-          color: '#0095DD'
+          background: [
+            { offset: 0, color: 'rgba(2, 0, 36, 1)' },
+            { offset: 0.35, color: 'rgba(9, 9, 121, 1)' },
+            { offset: 1, color: 'rgba(0, 212, 255, 1)' }
+          ]
         }
       }
     }
@@ -183,6 +191,7 @@ function togglePause() {
 }
 
 //? DIBUJAR ELEMENTOS
+
 function drawBall() {
   ball.style.left = `${ballPositionX - 6}px`
   ball.style.top = `${ballPositionY - 6}px`
@@ -213,8 +222,37 @@ function drawBricks() {
         b.y = brickY
         ctx.beginPath()
         ctx.rect(brickX, brickY, brickWidth, brickHeight)
-        ctx.fillStyle = b.color
+
+        let gradient
+        if (r === 0) {
+          gradient = ctx.createLinearGradient(
+            brickX,
+            brickY,
+            brickX + brickWidth,
+            brickY + brickHeight
+          )
+          gradient.addColorStop(0, 'rgb(73, 1, 92)')
+          gradient.addColorStop(0.35, 'rgb(119, 40, 104)')
+          gradient.addColorStop(1, 'rgba(255, 0, 106, 1)')
+        } else {
+          gradient = ctx.createLinearGradient(
+            brickX,
+            brickY,
+            brickX + brickWidth,
+            brickY + brickHeight
+          )
+          gradient.addColorStop(0, 'rgb(7, 1, 135)')
+          gradient.addColorStop(0.35, 'rgb(36, 36, 120)')
+          gradient.addColorStop(1, 'rgba(0, 212, 255, 1)')
+        }
+
+        ctx.fillStyle = gradient
         ctx.fill()
+
+        ctx.lineWidth = 0.5
+        ctx.strokeStyle = 'whitesmoke'
+        ctx.stroke()
+
         ctx.closePath()
       }
     }

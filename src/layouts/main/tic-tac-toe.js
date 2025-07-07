@@ -6,6 +6,7 @@ import { drawO } from '../../components/ticTacToe-components/drawO-computer'
 import { renderResetBtn } from '../../components/ticTacToe-components/reset-button'
 import { printScores } from '../../utils/ticTacToe-utils/scores/print-scores'
 import { clearLoserBoxes } from '../../utils/ticTacToe-utils/reset-loser-boxes-styles'
+import { toggleBoxes } from '../../utils/ticTacToe-utils/enable-and-disable-board-pointer-events'
 
 //* VARIABLES
 
@@ -89,6 +90,7 @@ export function ticTacToe() {
 
     onClick: () => {
       clearLoserBoxes()
+      toggleBoxes(false)
       gameStatus.gameOver = false
       whichTurn.isMyTurn = !whichTurn.isMyTurn
 
