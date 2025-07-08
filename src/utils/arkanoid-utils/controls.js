@@ -20,6 +20,11 @@ export function handleSpacebarPause(e) {
 }
 
 export function togglePause() {
+  const arkanoidSection = document.getElementById('arkanoid')
+  const isArkanoidVisible = arkanoidSection?.classList.contains('visualized')
+
+  if (!isArkanoidVisible) return
+
   if (state.isGameOver) return
   state.gameStarted = !state.gameStarted
   state.pauseStartBtn.innerText = state.gameStarted ? 'PAUSE' : 'START'
