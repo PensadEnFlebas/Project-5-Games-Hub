@@ -39,8 +39,6 @@ export function gwent() {
     className: 'gwentPassBtn hiddenBtn',
     textContent: 'Pass round',
     onClick: () => {
-      console.log('🚫 HAS PULSADO PASS ROUND BUTTON')
-
       gameState.updateState((state) => ({
         ...state,
         player: {

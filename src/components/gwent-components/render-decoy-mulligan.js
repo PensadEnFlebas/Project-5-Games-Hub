@@ -68,9 +68,7 @@ export function renderDecoyMulligan({ validTargets, player }) {
         [player]: {
           ...prev[player],
           hand: prev[player].hand.map((c) =>
-            c.id === prev.selectedDecoyCard?.id
-              ? { ...c, _decoyUsed: false }
-              : c
+            c.id === prev.selectedDecoyCard?.id ? { ...c, decoyUsed: false } : c
           )
         }
       }))
@@ -97,6 +95,18 @@ export function renderDecoyMulligan({ validTargets, player }) {
       const cardToSwap = playerField[cardToSwapIndex]
 
       cardToSwap.strength = cardToSwap.baseStrength
+
+      if (cardToSwap.spyApplied) {
+        cardToSwap.spyApplied = false
+      }
+
+      if (cardToSwap.medicUsed) {
+        cardToSwap.medicUsed = false
+      }
+
+      if (cardToSwap.decoyUsed) {
+        cardToSwap.decoyUsed = false
+      }
 
       const clonedDecoy = {
         ...decoyCard,

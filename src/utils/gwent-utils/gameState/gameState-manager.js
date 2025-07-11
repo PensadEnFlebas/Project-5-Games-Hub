@@ -106,11 +106,13 @@ class GameStateManager {
         ...state.player,
         score: 0,
         passed: false
+        // deadCards: this._resetDeadCardsStrength(state.player.deadCards)
       },
       computer: {
         ...state.computer,
         score: 0,
         passed: false
+        // deadCards: this._resetDeadCardsStrength(state.player.deadCards)
       },
       round: state.round + 1
     }))

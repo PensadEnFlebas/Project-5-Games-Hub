@@ -15,6 +15,7 @@ import {
   highlightValidLocations,
   removeHighlights
 } from './highlight-locations'
+import { playBoss } from '../../utils/gwent-utils/turns and playing cards/play-boss'
 
 export function previewCard(target, options = {}) {
   const { onUse = null } = options
@@ -80,10 +81,10 @@ export function previewCard(target, options = {}) {
         if (isBoss && currentState) {
           gameState.updateState((state) => ({
             ...state,
-            player: {
-              ...state.player,
-              bossUsed: true
-            },
+            // player: {
+            //   ...state.player,
+            //   bossUsed: true
+            // },
             currentTurn: 'computer'
           }))
 
@@ -96,7 +97,7 @@ export function previewCard(target, options = {}) {
 
           updateTurnIcon('computer')
           handleTurn()
-
+          playBoss(true)
           closeOverlay()
           return
         }

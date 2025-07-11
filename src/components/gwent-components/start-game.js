@@ -35,7 +35,6 @@ export function startGame(playerFaction) {
   renderPlayerHand(playerHand)
 
   const currentTurn = Math.random() < 0.5 ? 'player' : 'computer'
-  console.log(`${currentTurn} begins!`)
 
   const initialGameState = {
     playerFaction,

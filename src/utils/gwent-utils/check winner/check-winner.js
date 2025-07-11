@@ -10,8 +10,6 @@ import { endGame } from './end-game'
 export function checkWinner() {
   const state = gameState.getState()
 
-  console.log('checkWinner gameState: ', state)
-
   document.getElementById('gwent').classList.remove('blockedCard')
 
   const { player, computer } = state
@@ -70,12 +68,6 @@ export function checkWinner() {
     newState.battlefieldEffects = { frost: false, fog: false, rain: false }
     newState.round += 1
 
-    console.log(
-      `🔁 Ronda ${newState.round - 1} finalizada. Iniciando ronda ${
-        newState.round
-      }`
-    )
-
     return newState
   })
 
@@ -84,8 +76,6 @@ export function checkWinner() {
   cleanScores(updatedState.player, updatedState.computer)
   renderDeadCardsDeck(updatedState)
   cleanBoardgame()
-
-  console.log('🎯 Nuevo estado guardado:', updatedState)
 
   handleTurn()
 }

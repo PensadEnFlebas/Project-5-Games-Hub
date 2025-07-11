@@ -6,8 +6,6 @@ import { getPlayedCards } from './get-played-cards'
 export function applyAbilitiesToPlayedCards() {
   const allCards = getPlayedCards()
 
-  console.log('allCards: ', allCards)
-
   const hornCards = []
 
   allCards.forEach((card) => {
@@ -27,8 +25,6 @@ export function applyAbilitiesToPlayedCards() {
 
 function executeAbility(card, ability) {
   if (ability && cardAbilities[ability]) {
-    console.log(`✨ Se va a ejecutar el power de la card: ${ability}`)
-
     cardAbilities[ability](card)
   }
 }

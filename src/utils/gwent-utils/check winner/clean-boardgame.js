@@ -1,6 +1,4 @@
 export function cleanBoardgame() {
-  console.log('🧹 Clearing board...')
-
   const rows = [
     '.p1-melee',
     '.p1-range',

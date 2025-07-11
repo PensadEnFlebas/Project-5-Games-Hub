@@ -6,12 +6,12 @@ import { getBattlefieldStrength } from '../check winner/get-battlefield-strength
 import { checkWinner } from '../check winner/check-winner.js'
 import { computerShouldPass } from '../computer game logic/computer-should-pass.js'
 import { gameState } from '../gameState/gameState-manager.js'
+import { playBoss } from './play-boss.js'
 
 export function handleTurn() {
   updateComputerPassesText()
 
   const state = gameState.getState()
-  console.log('handleTurn gameState: ', state)
 
   if (state.medicMulliganActive || state.decoyMulliganActive) return
 
@@ -28,6 +28,8 @@ export function handleTurn() {
     handleComputerTurn()
   }
 }
+
+//? PLAYER TURN
 
 function enablePlayerTurn() {
   const state = gameState.getState()
@@ -90,6 +92,8 @@ function enablePlayerTurn() {
   passButton.disabled = false
 }
 
+//? COMPUTER TURN
+
 function handleComputerTurn() {
   const state = gameState.getState()
 
@@ -104,18 +108,8 @@ function handleComputerTurn() {
   const hand = state.computer.hand
   const shouldPass = computerShouldPass()
 
-  console.log(
-    '🔍 Antes del setTimeout, decoyMulliganActive:',
-    state.decoyMulliganActive
-  )
-
   setTimeout(() => {
     const currentState = gameState.getState()
-
-    console.log(
-      '⏱️ Dentro del setTimeout, decoyMulliganActive:',
-      currentState.decoyMulliganActive
-    )
 
     if (currentState.decoyMulliganActive || currentState.medicMulliganActive)
       return
@@ -133,7 +127,34 @@ function handleComputerTurn() {
       updateTurnIcon('player')
       handleTurn()
 
-      console.log('COMPUTER HA PASADO')
+      return
+    }
+
+    const playerScore = currentState.player.score
+    const computerScore = currentState.computer.score
+    const bossCard = currentState.computerBoss
+    const bossCardUsed = currentState.computerBossUsed
+
+    const shouldUseBossCard =
+      !bossCardUsed &&
+      bossCard &&
+      (Math.random() < 0.2 || playerScore - computerScore >= 15)
+
+    if (shouldUseBossCard) {
+      playBoss(false)
+
+      const currentState = gameState.getState()
+      const bossId = currentState.computerBoss.id
+
+      const bossElement = document.querySelector(`#${bossId}`)
+      if (bossElement) {
+        bossElement.classList.add('bossAlreadyUsed')
+      }
+
+      gameState.switchTurn()
+      updateTurnIcon('player')
+      handleTurn()
+
       return
     }
 

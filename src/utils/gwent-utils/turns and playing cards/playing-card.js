@@ -27,9 +27,6 @@ import { renderDeadCardsDeck } from '../../../components/gwent-components/render
 export function playingCard(cardData, indexCardInHand, targetCell = null) {
   const state = gameState.getState()
 
-  console.log(state.computer.score)
-  console.log(state.player.score)
-
   const currentTurn = state.currentTurn
   const currentPlayer = state[currentTurn]
   const isPlayer = currentTurn === 'player'
@@ -234,6 +231,7 @@ export function playingCard(cardData, indexCardInHand, targetCell = null) {
     if (!cardData.originalBaseStrength) {
       cardData.originalBaseStrength = cardData.baseStrength
     }
+
     return newState
   })
 
@@ -293,8 +291,6 @@ export function playingCard(cardData, indexCardInHand, targetCell = null) {
   }
 
   updateLastCardPlayedText(cardData)
-
-  console.log('player GameState :', state.player)
 }
 
 //? HELPING FUNCTIONS

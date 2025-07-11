@@ -53,8 +53,6 @@ export function morale(card) {
     rowCard.cellLocation.includes(row)
   )
 
-  console.log('cards in row :', cardsInRow)
-
   const types = ['unit', 'boss', 'special']
 
   cardsInRow.forEach((rowCard) => {
@@ -111,6 +109,8 @@ export function bond(card) {
 export function spy(card) {
   const state = gameState.getState()
   const currentTurn = state.currentTurn
+  const cardType = card.type[0]
+
   const opponent = currentTurn === 'player' ? 'computer' : 'player'
 
   if (card.spyApplied) return
@@ -127,10 +127,22 @@ export function spy(card) {
     adjustCardStack(boardCell)
   }
 
+  const updatedCard = { ...card, spyApplied: true }
+
+  // gameState.updateCard(updatedCard, currentTurn, cardType)
   gameState.updateState((state) => {
-    const newState = { ...state }
-    newState[opponent].playedCards.unit.push(card)
-    card.spyApplied = true
+    const toOpponentPlayedCards = state[opponent].playedCards.unit
+    const newState = {
+      ...state,
+      [opponent]: {
+        ...state[opponent],
+        playedCards: {
+          ...state[opponent].playedCards,
+          unit: [...toOpponentPlayedCards, updatedCard]
+        }
+      }
+    }
+
     return newState
   })
 
@@ -144,7 +156,7 @@ export function medic(card) {
   const currentPlayer = card.owner
   const isComputer = currentPlayer === 'computer'
 
-  if (card._medicUsed) return
+  if (card.medicUsed) return
   if (state.medicMulliganActive) return
 
   const validDeadCards = state[currentPlayer].deadCards.filter(
@@ -153,7 +165,7 @@ export function medic(card) {
 
   if (validDeadCards.length === 0) return
 
-  card._medicUsed = true
+  card.medicUsed = true
 
   if (isComputer) {
     const randomCard =
@@ -244,7 +256,7 @@ export function decoy(card) {
   const currentPlayer = card.owner
   const isComputer = currentPlayer === 'computer'
 
-  if (card._decoyUsed || state.decoyMulliganActive) return false
+  if (card.decoyUsed || state.decoyMulliganActive) return false
 
   const validTargets = (state[currentPlayer].playedCards.unit || []).filter(
     (c) => c.type.includes('unit') && !c.type.includes('hero')
@@ -262,10 +274,10 @@ export function decoy(card) {
     return false
   }
 
-  if (!card._decoyUsed) {
-    card._decoyUsed = true
+  if (!card.decoyUsed) {
+    card.decoyUsed = true
   } else {
-    delete card._decoyUsed
+    delete card.decoyUsed
   }
 
   if (isComputer) {
@@ -322,8 +334,6 @@ export function horn(card) {
   const cardsInRow = getPlayedCards().filter((rowCard) =>
     rowCard.cellLocation.includes(row)
   )
-
-  console.log('cards in row :', cardsInRow)
 
   const types = ['unit', 'boss', 'special']
 

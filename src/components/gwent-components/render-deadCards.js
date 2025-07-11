@@ -15,8 +15,8 @@ export function renderDeadCardsDeck(gameState) {
       card.strength = card.originalBaseStrength
     }
 
-    if (card._decoyUsed) delete card._decoyUsed
-
+    if (card.decoyUsed) delete card.decoyUsed
+    if (card.medicUsed) delete card.medicUsed
     if (card.spyApplied) delete card.spyApplied
   })
 
@@ -29,7 +29,7 @@ export function renderDeadCardsDeck(gameState) {
       card.strength = card.originalBaseStrength
     }
 
-    if (card._decoyUsed) delete card._decoyUsed
+    if (card.decoyUsed) delete card.decoyUsed
 
     if (card.spyApplied) delete card.spyApplied
   })

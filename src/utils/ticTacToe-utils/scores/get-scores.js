@@ -12,7 +12,6 @@ export function getScores() {
   try {
     return JSON.parse(saved)
   } catch (error) {
-    console.error('Error parsing scores from localStorage:', error)
     return {
       player: 0,
       computer: 0,

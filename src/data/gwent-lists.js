@@ -121,6 +121,7 @@ export const northernRealmsList = [
     abilityDescription:
       'Place on your opponents battlefield (counts towards their total strength) then draw two new cards from your deck',
     affectedBy: [],
+    spyApplied: false,
     boardLocations: ['p1-siege:battlefield', 'pc-siege:battlefield']
   },
   {
@@ -216,6 +217,7 @@ export const northernRealmsList = [
     abilityDescription:
       'Place on your opponents battlefield (counts towards their total strength) then draw two new cards from your deck',
     affectedBy: [],
+    spyApplied: false,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -272,6 +274,7 @@ export const northernRealmsList = [
     baseStrength: 5,
     type: ['unit', 'siege'],
     ability: ['medic'],
+    medicUsed: false,
     abilityDescription:
       'Choose one card from your discard pile (excluding heroes / special cards) to play instantly',
     affectedBy: [],
@@ -302,6 +305,7 @@ export const northernRealmsList = [
     abilityDescription:
       'Place on your opponents battlefield (counts towards their total strength) then draw two new cards from your deck',
     affectedBy: [],
+    spyApplied: false,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -513,9 +517,8 @@ export const northernRealmBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['siegeHorn'],
-    abilityDescription:
-      "Doubles the strength of all Siege units, unless a Commander's Horn is already in play on that row",
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
@@ -528,9 +531,8 @@ export const northernRealmBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['sun'],
-    abilityDescription:
-      'Clear any weather effects (on both sides) currently in play',
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
@@ -543,9 +545,8 @@ export const northernRealmBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['bossFog'],
-    abilityDescription:
-      'Pick an Impenetrable Fog card from your deck and play it instantly',
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
@@ -558,9 +559,8 @@ export const northernRealmBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['bossScorch'],
-    abilityDescription:
-      "Destroy opponent's strongest Siege units if the strength of that row is 10 or higher",
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   }
@@ -1135,7 +1135,7 @@ export const monstersBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['bossDiscard'],
+    ability: ['bossAbility'],
     abilityDescription:
       'Discard 2 cards and draw 1 card of your choice from your deck',
     affectedBy: [],
@@ -1150,9 +1150,8 @@ export const monstersBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['bossWeatherPick'],
-    abilityDescription:
-      'Pick any weather card from your deck and play it instantly',
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
@@ -1165,9 +1164,8 @@ export const monstersBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['meleeHorn'],
-    abilityDescription:
-      "Double the strength of all your Close Combat units (unless a Commander's Horn is also present on that row)",
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   },
@@ -1180,8 +1178,8 @@ export const monstersBosses = [
     strength: 0,
     baseStrength: 0,
     type: 'boss',
-    ability: ['bossMedic'],
-    abilityDescription: 'Restore a card from your discard pile to your hand',
+    ability: ['bossAbility'],
+    abilityDescription: 'Get a random extra 5, 10, 15 or 20 points',
     affectedBy: [],
     boardLocations: ['p1-siege:special-cards', 'pc-siege:special-cards']
   }
@@ -1197,6 +1195,7 @@ export const neutralCardsList = [
     baseStrength: 0,
     type: ['special'],
     ability: ['decoy'],
+    decoyUsed: false,
     abilityDescription:
       'Swap with a card on the battlefield to return it to your hand',
     affectedBy: [],
@@ -1218,6 +1217,7 @@ export const neutralCardsList = [
     baseStrength: 0,
     type: ['special'],
     ability: ['decoy'],
+    decoyUsed: false,
     abilityDescription:
       'Swap with a card on the battlefield to return it to your hand',
     affectedBy: [],
@@ -1239,6 +1239,7 @@ export const neutralCardsList = [
     baseStrength: 0,
     type: ['special'],
     ability: ['decoy'],
+    decoyUsed: false,
     abilityDescription:
       'Swap with a card on the battlefield to return it to your hand',
     affectedBy: [],
@@ -1575,6 +1576,7 @@ export const neutralCardsList = [
     abilityDescription:
       "Hero - Not affected by any Special Cards or abilities; Spy - Place on your opponent's battlefield (count towards opponent's total) and draw 2 cards from your deck",
     affectedBy: [],
+    spyApplied: false,
     boardLocations: ['p1-melee:battlefield', 'pc-melee:battlefield']
   },
   {
@@ -1599,6 +1601,7 @@ export const neutralCardsList = [
     baseStrength: 7,
     type: ['unit', 'hero', 'range'],
     ability: ['hero', 'medic'],
+    medicUsed: false,
     abilityDescription:
       'Hero - Not affected by special cards or abilities; Medic - Choose one card from your discard pile and play it instantly (no Heroes or Special Cards)',
     affectedBy: [],
