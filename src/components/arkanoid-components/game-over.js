@@ -28,7 +28,7 @@ export function gameOver() {
 
   if (state.score > state.bestScoreValue) {
     state.bestScoreValue = state.score
-    localStorage.setItem('arkanoidBestScore', bestScoreValue)
+    localStorage.setItem('arkanoidBestScore', state.bestScoreValue)
   }
 
   const bestScore = document.querySelector('.bestScore')
