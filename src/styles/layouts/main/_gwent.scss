@@ -118,3 +118,65 @@
     background-position-y: -800px;
   }
 }
+
+@media (max-width: 660px) {
+  #gwent,
+  .mulliganOverlay > * {
+    transform: scale(0.4) translateY(-950px);
+    flex-direction: column !important;
+  }
+
+  .mulliganOverlay {
+    position: absolute;
+    top: 700px;
+  }
+
+  .previewCardOverlay {
+    transform: scale(0.6);
+  }
+
+  .decoyMulliganOverlay {
+    transform: scale(0.6);
+  }
+
+  .endGameOverlay {
+    transform: scale(0.5) translateY(50px);
+  }
+}
+
+@media (max-height: 500px) {
+  #gwent > * {
+    transform: scale(0.3) translateY(-800px) !important;
+    width: 400px;
+  }
+
+  .gwentTurnCounterDiv {
+    position: absolute;
+    top: 200px;
+    left: 10px;
+  }
+
+  .gwentContainer {
+    width: 200% !important;
+  }
+
+  .mulliganOverlay {
+    transform: scale(0.4) translateY(10px) !important;
+  }
+
+  .previewCardOverlay {
+    transform: scale(0.6);
+  }
+
+  .medicMulliganOverlay {
+    transform: scale(0.6);
+  }
+
+  .decoyMulliganOverlay {
+    transform: scale(0.6);
+  }
+
+  .endGameOverlay {
+    transform: scale(0.4) translateY(5px);
+  }
+}
