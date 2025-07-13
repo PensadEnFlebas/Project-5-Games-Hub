@@ -166,3 +166,26 @@
     transform: scale(0.5) translateX(-290px) !important;
   }
 }
+
+@media (max-height: 500px) {
+  #arkanoid > * {
+    transform: scale(0.45) translateX(-290px) !important;
+    width: 400px;
+  }
+
+  .logoContainer {
+    position: absolute;
+    top: 100px;
+    right: -40px;
+    gap: 50px !important;
+    flex-direction: column !important;
+    width: 150px !important;
+  }
+
+  .scoreContainer {
+    flex-direction: column !important;
+    position: absolute;
+    top: 200px;
+    right: -250px;
+  }
+}
