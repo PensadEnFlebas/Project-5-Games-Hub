@@ -119,3 +119,50 @@
     color: vars.$tertiary-color;
   }
 }
+
+@media (max-width: 660px) {
+  #arkanoid > * {
+    transform: scale(0.6) translateX(-100px);
+  }
+  .canvasContainer {
+    margin: auto !important;
+  }
+
+  .scoreContainer {
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+
+  .logoContainer {
+    justify-content: center !important;
+    gap: 50px !important;
+    width: 100% !important;
+    max-height: 200px !important;
+  }
+}
+
+@media (max-width: 470px) {
+  #arkanoid > * {
+    transform: scale(0.5) translateX(-240px) !important;
+    height: 400px;
+  }
+
+  .logoContainer {
+    height: 80px !important;
+  }
+
+  .scoreContainer {
+    width: 100% !important;
+    height: 100px !important;
+    position: absolute;
+    top: 200px;
+    left: 120px;
+  }
+}
+
+@media (max-width: 370px) {
+  #arkanoid > * {
+    transform: scale(0.5) translateX(-290px) !important;
+  }
+}

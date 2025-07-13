@@ -4,7 +4,8 @@ import { draw } from './draw-game'
 import {
   handleKeyDown,
   handleKeyUp,
-  handleSpacebarPause
+  handleSpacebarPause,
+  touchControls
 } from '../../utils/arkanoid-utils/controls'
 import { state } from './arkanoid-state'
 
@@ -67,4 +68,6 @@ export function startGame() {
   }
   state.barImage.onload = checkAllLoaded
   state.ball.onload = checkAllLoaded
+
+  touchControls()
 }
