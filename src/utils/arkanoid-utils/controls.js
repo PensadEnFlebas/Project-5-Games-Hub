@@ -21,11 +21,17 @@ export function touchControls() {
     (e) => {
       const touch = e.touches[0]
       const rect = canvas.getBoundingClientRect()
-      const relativeX = touch.clientX - rect.left
 
-      if (relativeX > 0 && relativeX < canvas.width) {
-        state.barPositionX = relativeX - state.barWidth / 2
-      }
+      const scaleX = canvas.width / rect.width
+      const relativeX = (touch.clientX - rect.left) * scaleX
+
+      let newX = relativeX - state.barWidth / 2
+
+      if (newX < 0) newX = 0
+      if (newX > canvas.width - state.barWidth)
+        newX = canvas.width - state.barWidth
+
+      state.barPositionX = newX
 
       e.preventDefault()
     },
